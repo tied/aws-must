@@ -1,11 +1,10 @@
 -- demo/2 : added description property
 
 
-description: "A simple Amazon EC2 instance created using aws-must tool
+description: "demo/5: A simple Amazon EC2 instance created using aws-must tool
              - Minimum Viable Solution to Manage CloudFormation
              Templates. This version adds Output section with references
-             to InstanceId and PublicId of the newly created EC2 instance'. 
-             The image id references AMI in 'eu-central-1'."
+             to InstanceId and PublicId of the newly created EC2 instance'."
 
 
 parameters:

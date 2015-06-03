@@ -7,6 +7,17 @@
 task :default => [:usage]
 
 # ------------------------------------------------------------------
+# Internal development
+
+begin
+
+  require "raketools_site.rb"
+rescue LoadError
+  # puts ">>>>> Raketools not loaded, omitting tasks"
+end
+
+
+# ------------------------------------------------------------------
 # demo
 
 namespace "demo" do |ns|
@@ -20,12 +31,15 @@ namespace "demo" do |ns|
 
   [ 
 
-   { :id => "1", :desc=>"Initial copy"  },
-   { :id => "2", :desc=>"Added 'description' -property to YAML file"  },
-   { :id => "3", :desc=>"Use resources.mustache -partial to create EC2 intance"  },
-   { :id => "4", :desc=>"EC2 instance configuration using YAML-data"  },
-   { :id => "5", :desc=>"Add 'Outputs' -section with reference to EC2 instance"  },
-   { :id => "6", :desc=>"Add 'Inputs' and 'Mappings' -sections to parametirize "  }
+   { :id => "1", :desc=>"Initial copy", :region=>['eu-central-1'] },
+   { :id => "2", :desc=>"Added 'description' -property to YAML file", :region=>['eu-central-1']  },
+   { :id => "3", :desc=>"Use resources.mustache -partial to create EC2 intance", :region=>['eu-central-1']   },
+   { :id => "4", :desc=>"EC2 instance configuration using YAML-data", :region=>['eu-central-1']   },
+   { :id => "5", :desc=>"Add 'Outputs' -section with reference to EC2 instance", :region=>['eu-central-1']   },
+   { :id => "6", :desc=>"Add 'Inputs' and 'Mappings' -sections to parametirize", :region=>["ap-northeast-1", "ap-southeast-1", "ap-southeast-2", "cn-north-1", "eu-central-1", "eu-west-1", "sa-east-1", "us-east-1", "us-gov-west-1", "us-west-1", "us-west-2"]   }
+
+
+
 
   ].each do  |c|
 
@@ -34,7 +48,15 @@ namespace "demo" do |ns|
       sh "#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml"
     end
 
-    desc "Create stack #{stack} using using configs  in '#{demo_dir}/#{c[:id]}' to demonstrate '#{c[:desc]}'"
+    desc "Check the difference between version '#{c[:id]}' and '#{c[:id].to_i() -1}' "
+    task "diff-#{c[:id]}" do
+      prev = c[:id].to_i() -1
+      # use bash temporary names pipes to diff two stdouts
+      # Use `jq` to create canonical pretty print json
+      sh "bash -c \"diff <(#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml | jq . ) <(#{cmd} gen -t #{demo_dir}/#{prev} #{demo_dir}/#{prev}/conf.yaml | jq . ) || true \""
+    end
+
+    desc "Create stack #{stack} for '#{demo_dir}/#{c[:id]}' supported regions=#{c[:region]}"
     task "stack-#{c[:id]}" do
       sh "aws cloudformation create-stack --stack-name #{stack}  --template-body \"$(#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml)\""
     end

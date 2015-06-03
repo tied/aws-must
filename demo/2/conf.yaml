@@ -1,6 +1,6 @@
 -- demo/2 : added description property
 
 
-description: "A simple Amazon EC2 instance created using aws-must tool
-	     - Minimum Viable Solution to Manage CloudFormation
-	     Templates"
+description: "demo/2: a simple Amazon EC2 instance created using
+             aws-must tool.  Added 'description' tag in
+             `root.mustache`"

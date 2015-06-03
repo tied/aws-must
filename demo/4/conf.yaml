@@ -1,10 +1,9 @@
 -- demo/2 : added description property
 
 
-description: "A simple Amazon EC2 instance created using aws-must tool
-	     - Minimum Viable Solution to Manage CloudFormation
-	     Templates. The resource created in defined in YAML configuration.
-             The ImageId -attribute references AMI in 'eu-central-1'"
+description: "demo/4: a simple Amazon EC2 instance created using aws-must tool.
+	     The resource created are in defined in YAML configuration, and
+	     the JSON template should not change."
 
 
 parameters:
