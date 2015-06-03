@@ -1,0 +1,39 @@
+-- demo/2 : added description property
+
+
+description: "A simple Amazon EC2 instance created using aws-must tool
+             - Minimum Viable Solution to Manage CloudFormation
+             Templates. This version adds Output section with references
+             to InstanceId and PublicId of the newly created EC2 instance'. 
+             The image id references AMI in 'eu-central-1'."
+
+
+parameters:
+
+        -  Name: InstanceType
+           Type: String
+           Description: EC2 reousrce instance type
+           Value: &Param_InstanceType t2.micro
+
+
+resources:
+
+        -  Instance: 
+                 Name: &Resource_1 MyEC2Instance
+                 ImageId: ami-00dae61d
+                 InstanceType: *Param_InstanceType
+
+
+outputs:
+
+        -  Name: InstanceId1
+           Description: InstanceId of the newly created EC2 instance
+           Ref:  *Resource_1
+
+
+        -  Name: PublicIP1
+           Description: Public IP address of the newly created EC2 instance
+           Attr: 
+                 Ref: *Resource_1
+                 Name: PublicIp
+

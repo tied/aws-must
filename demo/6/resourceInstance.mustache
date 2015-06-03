@@ -1,0 +1,8 @@
+    "{{Name}}" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId" : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" },
+	 	    { "Fn::FindInMap" : [ "AWSInstanceType2Arch", "{{InstanceType}}", "Arch" ] } ] },
+        "InstanceType" : "{{InstanceType}}"
+      } {{! Propertites }}
+    }{{_comma}}

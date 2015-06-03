@@ -1,0 +1,37 @@
+-- demo/2 : added description property
+
+
+description: "A simple Amazon EC2 instance created using aws-must tool
+	     - Minimum Viable Solution to Manage CloudFormation
+	     Templates. This version uses mapping template, which defines
+	     t2.micro instances for several Amazon regions."
+
+
+parameters:
+
+        -  Name: InstanceType
+           Type: String
+           Description: EC2 reousrce instance type
+           Value: &Param_InstanceType t2.micro
+
+
+resources:
+
+        -  Instance: 
+                 Name: &Resource_1 MyEC2Instance
+                 InstanceType: *Param_InstanceType
+
+
+outputs:
+
+        -  Name: InstanceId1
+           Description: InstanceId of the newly created EC2 instance
+           Ref:  *Resource_1
+
+
+        -  Name: PublicIP1
+           Description: Public IP address of the newly created EC2 instance
+           Attr: 
+                 Ref: *Resource_1
+                 Name: PublicIp
+

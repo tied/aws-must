@@ -1,0 +1,19 @@
+{{!
+	output.mustache - one outpu in CF output-section
+
+	Attributes:
+  	- Name - name of output definition
+	- Description - description one lines for output
+
+        - output value types
+          -- Ref using property 'Ref'
+          -- Attr: using properties 'Ref' and 'Name'
+}}
+
+
+    "{{Name}}": {
+      "Description" : "{{Description}}"
+      {{#Ref}}, "Value" : { "Ref" : "{{Ref}}" }{{/Ref}}
+      {{#Attr}}, "Value" : { "Fn::GetAtt" : [ "{{Ref}}", "{{Name}}" ] }{{/Attr}}
+    }{{_comma}}
+

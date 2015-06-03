@@ -1,0 +1,28 @@
+{{!
+
+     root.mustache: root level template, 
+
+     create CloudFormation json with 
+     - global attributes
+     - Paramerters -section
+     - Mappings -section
+     - Resources -section
+     - Outputs -section
+
+}}
+
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "{{description}}",
+
+
+
+  "Resources" : {
+
+    {{> resources }}
+    {{# resources }}{{> resource }}{{/ resources }}
+
+  }
+
+}

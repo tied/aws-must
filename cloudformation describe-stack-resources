@@ -1,0 +1,67 @@
+CLOUDFORMATION()                                              CLOUDFORMATION()
+
+
+
+NNAAMMEE
+       cloudformation -
+
+DDEESSCCRRIIPPTTIIOONN
+       AWS  CloudFormation enables you to create and manage AWS infrastructure
+       deployments predictably and repeatedly. AWS  CloudFormation  helps  you
+       leverage  AWS  products  such  as Amazon EC2, EBS, Amazon SNS, ELB, and
+       Auto Scaling to build highly-reliable, highly scalable, cost  effective
+       applications without worrying about creating and configuring the under-
+       lying AWS infrastructure.
+
+       With AWS CloudFormation, you declare all of your resources  and  depen-
+       dencies  in  a  template  file.  The  template  defines a collection of
+       resources as a single unit called a stack. AWS  CloudFormation  creates
+       and  deletes all member resources of the stack together and manages all
+       dependencies between the resources for you.
+
+       For more information about this product, go to the _C_l_o_u_d_F_o_r_m_a_t_i_o_n _P_r_o_d_-
+       _u_c_t _P_a_g_e .
+
+       Amazon  CloudFormation  makes  use  of  other AWS products. If you need
+       additional technical information about a specific AWS product, you  can
+       find       the      product's      technical      documentation      at
+       _h_t_t_p_:_/_/_a_w_s_._a_m_a_z_o_n_._c_o_m_/_d_o_c_u_m_e_n_t_a_t_i_o_n_/ .
+
+AAVVAAIILLAABBLLEE CCOOMMMMAANNDDSS
+       +o cancel-update-stack
+
+       +o create-stack
+
+       +o delete-stack
+
+       +o describe-stack-events
+
+       +o describe-stack-resource
+
+       +o describe-stack-resources
+
+       +o describe-stacks
+
+       +o get-stack-policy
+
+       +o get-template
+
+       +o get-template-summary
+
+       +o help
+
+       +o list-stack-resources
+
+       +o list-stacks
+
+       +o set-stack-policy
+
+       +o signal-resource
+
+       +o update-stack
+
+       +o validate-template
+
+
+
+                                                              CLOUDFORMATION()
