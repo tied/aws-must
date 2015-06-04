@@ -132,6 +132,28 @@ MUSTACHE
 
       end
 
+      it "#'case O\n\nL\n --> output L" do
+
+        line1="line1"
+        line2="Line2"
+        root =  <<MUSTACHE
+
+#{@sut.get_tag(:open)}
+
+#{line1}
+MUSTACHE
+
+        expect( @template ).to receive( :get_template ).and_return( root )
+
+        expect( @sut ).to receive( :output ).with( "" ).ordered
+        expect( @sut ).to receive( :output ).with( line1 ).ordered
+        
+        @sut.document( "root" )
+
+      end
+
+
+
       it "#case lOL\n  --> output L" do
 
         line1="line1"
@@ -142,8 +164,8 @@ MUSTACHE
 
         expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line2 )
-        expect( @sut ).to receive( :directive_close ).with( line2 ).and_call_original
+        # expect( @sut ).to receive( :output ).with( line2 )
+        expect( @sut ).not_to receive( :output )
         
         @sut.document( "root" )
 
@@ -184,8 +206,8 @@ MUSTACHE
 
         expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).twice
-        expect( @sut ).to receive( :directive_close ).twice.and_call_original
+        expect( @sut ).to receive( :output ).with( line3 )
+        expect( @sut ).to receive( :directive_close ).once.and_call_original
         
         @sut.document( "root" )
 
@@ -232,7 +254,9 @@ MUSTACHE
 
         expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line2 )
+        #expect( @sut ).to receive( :output ).with( line2 )
+        expect( @sut ).not_to receive( :output )
+
         
         @sut.document( root_name )
 
@@ -252,7 +276,7 @@ MUSTACHE
 
         expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line2 )
+        expect( @sut ).to receive( :output ).with( line3 )
         
         @sut.document( root_name )
 
@@ -272,8 +296,9 @@ MUSTACHE
 
         expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line2 )
-        expect( @sut ).to receive( :output ).with( line4 )
+        # expect( @sut ).to receive( :output ).with( line2 )
+        # expect( @sut ).to receive( :output ).with( line4 )
+        expect( @sut ).not_to receive( :output )
         
         @sut.document( root_name )
 
@@ -294,7 +319,7 @@ MUSTACHE
 
         expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line2 )
+        expect( @sut ).not_to receive( :output )
         
         @sut.document( root_name )
 

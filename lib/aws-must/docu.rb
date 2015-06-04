@@ -110,7 +110,11 @@ module AwsMust
       if line && line.include?( get_tag(:open) ) then
         # find index pointing _after_ :open tag
         index = line.index( get_tag(:open) ) + get_tag(:open).length
-        return  true, line[ index..-1]
+        # # return text after directtive
+        # return  true, line[ index..-1]
+
+        # do not output anything for the line
+        return  true, nil
 
       else
         return false, nil
@@ -122,7 +126,9 @@ module AwsMust
       #return line && line.include?( get_tag( :close ) )
       if line && line.include?( get_tag( :close ) ) then
         index = line.index( get_tag(:close) )
-        return true, index == 0 ? nil : line[0..index-1],  line[ index+ get_tag(:close).length..-1]
+        # return true, index == 0 ? nil : line[0..index-1],  line[ index+ get_tag(:close).length..-1]
+        # do not output anythin on line for directive
+        return true, nil, nil
       else
         return false, nil, line
       end

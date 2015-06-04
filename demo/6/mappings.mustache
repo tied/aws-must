@@ -1,13 +1,13 @@
 {{!
 
-+++start+++
+++start++
 
 # mappings.mustache
 
 Create fixed lookup tables `AWSInstanceType2Arch` and `AWSRegionArch2AMI`.
 
 
-+++close+++
+++close++
 
 }}
 
@@ -21,7 +21,7 @@ Restult from http://cloud-images.ubuntu.com/locator/ec2/ free tier eleglible
 - 20150528
 - amd64
 
-+++start+++
+++start++
 
 <code><pre>
 ap-northeast-1    trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-90815290    hvm
@@ -37,15 +37,14 @@ us-west-1         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami
 us-west-2         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-57e8d767    hvm
 </pre></code>
 
-+++close+++
+++close++
 
 }}
 
-{{! +++start+++
+{{! ++start++
 <pre><span class="template">
-+++close+++
-}}
-{{! +++start+++ }}
+++close++ }}
+{{! ++start++ }}
 
 
       "AWSInstanceType2Arch" : {
@@ -65,7 +64,8 @@ us-west-2         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami
            "us-west-2" : { "64" : "ami-57e8d767" }
       }
 
-{{! +++close+++ }}
-{{! +++start+++
+{{! ++close++ }}
+
+{{! ++start++
 </span></pre>
-+++close+++ }}
+++close++ }}
