@@ -2,12 +2,63 @@
 
      root.mustache: root level template, 
 
-     create CloudFormation json with 
-     - global attributes
-     - Paramerters -section
-     - Mappings -section
-     - Resources -section
-     - Outputs -section
+==================================================================
+STYLE section
+==================================================================
+
++++start+++
+
+<style>
+h1 {
+    color:blue; 
+    font-size: 2.5em;
+   }
+h2 {
+      color:blue;
+      font-size: 1.5em;
+   }
+h3 {
+      color:blue;
+      font-size: 1.5em;
+   }
+.template {
+      color: yellow;
+}
+body {
+    background-color: #b0c4de;
+} 
+</style>
+
++++close+++
+
+
+==================================================================
+CONTENT section
+==================================================================
+
++++start+++
+
+# root.mustache
+
+Root template 
+
+**included templates**
+
+* `resources`
+* `resource`
+* `mappings`: create fixed looktables
+* `output`: for each element in YAML arrays `output` render template `output`
+
+**Attributes**:
+
+* `description`: description for the CF template
+
+> resources
+> resource
+> output
+> mappings
+
++++close+++
 
 }}
 

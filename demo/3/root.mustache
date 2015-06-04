@@ -1,13 +1,47 @@
 {{!
 
-     root.mustache: root level template, 
 
-     create CloudFormation json with 
-     - global attributes
-     - Paramerters -section
-     - Mappings -section
-     - Resources -section
-     - Outputs -section
+==================================================================
+STYLE section
+==================================================================
+
++++start+++
+<style>
+h1 {
+    color:blue; 
+    font-size: 2.5em;
+   }
+
+h2 {
+      color:blue;
+      font-size: 1.5em;
+   }
+
+body {
+    background-color: #b0c4de;
+} 
+</style>
++++close+++
+
+==================================================================
+CONTENT section
+==================================================================
+
++++start+++
+
+# root.mustache
+
+Create an EC2 instance
+
+**Attributes**:
+
+* `description`: description for the CF template
+
+> resources
+
++++close+++
+
+==================================================================
 
 }}
 

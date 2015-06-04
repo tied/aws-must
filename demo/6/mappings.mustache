@@ -1,9 +1,13 @@
 {{!
 
++++start+++
 
-       mappings.mustache: map instance type && region to instanceid
+# mappings.mustache
 
-       Attributes:
+Create fixed lookup tables `AWSInstanceType2Arch` and `AWSRegionArch2AMI`.
+
+
++++close+++
 
 }}
 
@@ -17,25 +21,35 @@ Restult from http://cloud-images.ubuntu.com/locator/ec2/ free tier eleglible
 - 20150528
 - amd64
 
++++start+++
 
-ap-northeast-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-90815290	hvm
-ap-southeast-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-0accf458	hvm
-ap-southeast-2	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-1dc8b127	hvm
-cn-north-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-eae27fd3	hvm
-eu-central-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-3248712f	hvm
-eu-west-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-d74437a0	hvm
-sa-east-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-0f6ced12	hvm
-us-east-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-83c525e8	hvm
-us-gov-west-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-51513172	hvm
-us-west-1	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-61b25925	hvm
-us-west-2	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-57e8d767	hvm
+<code><pre>
+ap-northeast-1    trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-90815290    hvm
+ap-southeast-1    trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-0accf458    hvm
+ap-southeast-2    trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-1dc8b127    hvm
+cn-north-1        trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-eae27fd3    hvm
+eu-central-1      trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-3248712f    hvm
+eu-west-1         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-d74437a0    hvm
+sa-east-1         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-0f6ced12    hvm
+us-east-1         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-83c525e8    hvm
+us-gov-west-1     trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-51513172    hvm
+us-west-1         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-61b25925    hvm
+us-west-2         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-57e8d767    hvm
+</pre></code>
+
++++close+++
 
 }}
 
+{{! +++start+++
+<pre><span class="template">
++++close+++
+}}
+{{! +++start+++ }}
 
 
       "AWSInstanceType2Arch" : {
-	  "t2.micro"    : { "Arch" : "64" }
+      "t2.micro"    : { "Arch" : "64" }
       },
       "AWSRegionArch2AMI" : {
            "ap-northeast-1" : { "64" : "ami-90815290" },
@@ -50,3 +64,8 @@ us-west-2	trusty	14.04 LTS	amd64	hvm:ebs-ssd	20150528	ami-57e8d767	hvm
            "us-gov-west-1" : { "64" : "ami-51513172" },
            "us-west-2" : { "64" : "ami-57e8d767" }
       }
+
+{{! +++close+++ }}
+{{! +++start+++
+</span></pre>
++++close+++ }}

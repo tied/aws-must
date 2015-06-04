@@ -21,7 +21,24 @@ module AwsMust
 
       # create object, which knows how to generate CloudFormation template json
       @template = Template.new( options ) 
+      @docu     = Docu.new( @template, options )
     end
+
+    # ------------------------------------------------------------------
+    # extract documentation  from 'template_name' 
+
+    def doc( template_name ) 
+
+      @logger.debug( "#{__method__}, template_name '#{template_name}'" )
+      
+      @docu.document( template_name )
+
+
+    end
+
+    # ------------------------------------------------------------------
+    # generate JSON by rendering 'template_name' using configurations
+    # from 'yaml_file'
 
     def generate( template_name, yaml_file, options ) 
 

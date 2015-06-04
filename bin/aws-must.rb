@@ -18,6 +18,32 @@ class App < Thor
   :desc => "Set debug level "
 
   # ------------------------------------------------------------------
+  # action 'doc'
+
+  desc "doc", "Extract template documentation"
+
+  option :template_path, :aliases => "-t", :type => :string, 
+  :default => "mustache", 
+  :desc => "Directory holding mustache templates"
+
+  long_desc <<-LONGDESC
+
+  Extract documation from <template_name> in ':template_path' -direcotory.
+
+  <template_name> defaults to '#{DEAFAULT_TEMPLATE}'
+
+LONGDESC
+
+  def doc( template_name=DEAFAULT_TEMPLATE )
+
+    app = ::AwsMust::AwsMust.new( options )
+    app.doc( template_name )
+
+  end
+
+
+
+  # ------------------------------------------------------------------
   # action 'gen'
 
   desc "gen <yaml_file> [<template_name>]", "Generate CloudFormation JSON template"
@@ -36,10 +62,11 @@ class App < Thor
 LONGDESC
 
 
-  def gen( yaml_file=nil, template=DEAFAULT_TEMPLATE )
-    app = ::AwsMust::AwsMust.new( options )
+  def gen( yaml_file, template_name=DEAFAULT_TEMPLATE )
 
-    app.generate( template, yaml_file, options )
+    app = ::AwsMust::AwsMust.new( options )
+    app.generate( template_name, yaml_file, options )
+
   end
 
 end

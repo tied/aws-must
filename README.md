@@ -73,6 +73,20 @@ With `aws-tool` users may
 
 ### CLI  Usage
 
+To get help 	
+
+	aws-must.rb help
+
+To create CloudFormation JSON template for `yaml_file` using default
+template `./mustache/root.mustache` issue the command
+
+	aws-must.rb gen yaml_file
+
+To extract documentation from template `./mustache/root.mustache`
+issue the command
+
+	aws-must.rb doc 
+
 ### Demo Usage
 
 #### Demo Usage Locally
