@@ -3,20 +3,27 @@
 
 ++start++
 
-## output.mustache
+## <a id="output.mustache"></a>output.mustache <a class='navigator' href='#top'">[top]</a>
 
-Create one output entry to output section
+Create one output entry to CloudFormation JSON output section
 
-**Attributes**
+**Attributes**: context= `./outputs`
 
 * `Name` : of the ouput entry
 * `Description`: of the output entry
-*  Continually one
-   * `Ref`
-      * `Ref`: 
-   * `Attr`
-      * `Ref`: 
-      * `Name`: name of the attribute
+* `Ref`: name of refernece
+* `Attr`
+  * `Ref`: name of attribute reference
+  * `Name`: name of the attribute
+
+
+
+**Actions**:
+
+* **Name**: `Name`
+* **Description**: `Description`
+* **Value**: **Ref** if `Ref`
+* **Value**: `Attr.Ref`, `Attr.Name` if `Attr`
 
 
 

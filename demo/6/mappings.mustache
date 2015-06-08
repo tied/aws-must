@@ -2,26 +2,11 @@
 
 ++start++
 
-# mappings.mustache
-
-Create fixed lookup tables `AWSInstanceType2Arch` and `AWSRegionArch2AMI`.
+## <a id="mappings.mustache"></a>mappings.mustache <a class='navigator' href='#top'">[top]</a>
 
 
-++close++
-
-}}
-
-{{!
-
-Restult from http://cloud-images.ubuntu.com/locator/ec2/ free tier eleglible
-
-
-- trusty
-- hvm-ebs-ssd
-- 20150528
-- amd64
-
-++start++
+Create fixed lookup tables `AWSInstanceType2Arch` and
+`AWSRegionArch2AMI` implementing the table below
 
 <code><pre>
 ap-northeast-1    trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-90815290    hvm
@@ -37,14 +22,30 @@ us-west-1         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami
 us-west-2         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami-57e8d767    hvm
 </pre></code>
 
+
+**Attributes**: context=  `.`
+
+* none
+
+
+**Actions**:
+
+* **AWSInstanceType2Arch**: fixed key/value mapping, currently only
+    **t2.micro** --> **64bit**
+
+* **AWSRegionArch2AMI**: fixed key/value mapping created, currently
+    architectures only for **64bits**
+
+
 ++close++
+
+
+==================================================================
+The template
+==================================================================
 
 }}
 
-{{! ++start++
-<pre><span class="template">
-++close++ }}
-{{! ++start++ }}
 
 
       "AWSInstanceType2Arch" : {
@@ -64,8 +65,3 @@ us-west-2         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami
            "us-west-2" : { "64" : "ami-57e8d767" }
       }
 
-{{! ++close++ }}
-
-{{! ++start++
-</span></pre>
-++close++ }}
