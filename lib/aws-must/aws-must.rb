@@ -1,4 +1,5 @@
 require 'yaml'
+require 'json'
 
 module AwsMust
 
@@ -25,6 +26,21 @@ module AwsMust
     end
 
     # ------------------------------------------------------------------
+    # dump 'yaml_file' as json
+
+    def json( yaml_file ) 
+
+      @logger.debug( "#{__method__}, template_name '#{yaml_file}'" )
+
+      # 
+      data = read_yaml_file( yaml_file )
+
+      puts data.to_json
+
+
+    end # 
+
+    # ------------------------------------------------------------------
     # extract documentation  from 'template_name' 
 
     def doc( template_name ) 
@@ -45,9 +61,8 @@ module AwsMust
       @logger.debug( "#{__method__}, template_name '#{template_name}'" )
       @logger.debug( "#{__method__}, yaml_file= '#{yaml_file}'" )
 
-
-      raise "YAML file #{yaml_file} does not exist" unless File.exist?( yaml_file )
-      data = YAML.load_file( yaml_file )
+      # 
+      data = read_yaml_file( yaml_file )
 
       # some 'quirks' on data 
       data = adjust( data )
@@ -63,6 +78,16 @@ module AwsMust
     # last hash in arrays
     def adjust( data )
       return addComma( data )
+    end
+
+
+    def  read_yaml_file( yaml_file ) 
+
+      raise "YAML file #{yaml_file} does not exist" unless File.exist?( yaml_file )
+      data = YAML.load_file( yaml_file )
+
+      return data
+
     end
 
 

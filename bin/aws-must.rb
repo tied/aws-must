@@ -41,6 +41,24 @@ LONGDESC
 
   end
 
+  # ------------------------------------------------------------------
+  # action 'json'
+
+  desc "json <yaml_file>", "Dump configuration in JSON format"
+
+  long_desc <<-LONGDESC
+
+  Reads <yaml_file> and dumps it to stdout in JSON format.
+
+LONGDESC
+
+
+  def json( yaml_file )
+
+    app = ::AwsMust::AwsMust.new( options )
+    app.json( yaml_file )
+
+  end
 
 
   # ------------------------------------------------------------------
