@@ -1,0 +1,40 @@
+{{!
+
+
+++start++
+
+## <a id="output.mustache"></a>output.mustache <a class='navigator' href='#top'">[top]</a>
+
+Create one output entry to CloudFormation JSON output section
+
+**Attributes**: context= `./outputs`
+
+* `Name` : of the ouput entry
+* `Description`: of the output entry
+* `Ref`: name of refernece
+* `Attr`
+  * `Ref`: name of attribute reference
+  * `Name`: name of the attribute
+
+
+
+**Actions**:
+
+* **Name**: `Name`
+* **Description**: `Description`
+* **Value**: **Ref** if `Ref`
+* **Value**: `Attr.Ref`, `Attr.Name` if `Attr`
+
+
+
+++close++
+
+}}
+
+
+    "{{Name}}": {
+      "Description" : "{{Description}}"
+      {{#Ref}}, "Value" : { "Ref" : "{{Ref}}" }{{/Ref}}
+      {{#Attr}}, "Value" : { "Fn::GetAtt" : [ "{{Ref}}", "{{Name}}" ] }{{/Attr}}
+    }{{_comma}}
+

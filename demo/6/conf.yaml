@@ -1,10 +1,10 @@
 -- demo/2 : added description property
 
 
-description: "A simple Amazon EC2 instance created using aws-must tool
-	     - Minimum Viable Solution to Manage CloudFormation
-	     Templates. This version uses mapping template, which defines
-	     t2.micro instances for several Amazon regions."
+description: "demo/6 - A simple Amazon EC2 instance created using aws-must tool
+             - Minimum Viable Solution to Manage CloudFormation
+             Templates. This version uses AWSInstanceType2Arch and AWSRegionArch2AMI 
+             to define 64bit hmv 't2.micro' instances AMIs for several Amazon regions."
 
 
 parameters:

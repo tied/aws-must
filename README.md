@@ -3,14 +3,8 @@
 `aws-must` is a tool, which allows separating infrastructure
 configuration and Amazon related syntax using
 [YAML](http://learnxinyminutes.com/docs/yaml) and
-[Mustache templates](https://mustache.github.io/). Template
-documentation can generated automagically from tagged section in
-template comments.
+[Mustache templates](https://mustache.github.io/). 
 
-be documented automatically
-by Documentation of the templates is supported based on the
-[Code As Documentation](http://martinfowler.com/bliki/CodeAsDocumentation.html)
-idea.
 
 ## The problem
 
@@ -58,9 +52,11 @@ With `aws-tool` users may
 3. use YAML anchors to express dependencies between infrastructure
    elements.
 
-4. add comments in YAML and Mustache templates. A special markup in
-   Mustache template comment sections, allows automatic generation of
-   template documentation.
+4. add comments in YAML and Mustache templates. The tool uses simple
+   tag syntax (**&plus;&plus;start&plus;&plus;** and
+   **&plus;&plus;close&plus;&plus;** -tags) to allow template
+   documentation to be automatically extracted from template source
+   code.
 
 5. write reusable template elements using Mustache partials.
 
