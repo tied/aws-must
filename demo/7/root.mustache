@@ -43,9 +43,10 @@ This document is generated automically from `aws-must` -demo
 templates. 
 
 
-It uses markdown syntax between **&plus;&plus;start&plus;&plus;** and
-**&plus;&plus;close&plus;&plus;** -tags within the template files. For
-each template, the document section
+Output contains markdown syntax between
+**&plus;&plus;start&plus;&plus;** and
+**&plus;&plus;close&plus;&plus;** -tags from the template files. For
+each template, it
 
 * gives a general description of the template
 
@@ -96,22 +97,19 @@ response to describe stack calls </li> </ul>
 
 ## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
 
-Starting point of template generation.
+Starting point of template rendering.
 
-**Attributes**: context= context= `.`
+**Attributes**: context= `.`
 
 * `description`: description for the CF template
-
 * `parameters`: array of parameter sub-documents for CloudFormation Parameters -section
-
 * `resources`: array of resource sub-documents for CloudFormation Resources -section
-
 * `outputs`: array of output sub-documents for CloudFormation Outputs -section
 
 
 **Actions**:
 
-* **description**: `Description`
+* **Description**: `description`
 * **for** `parameter` **in** `parameters`  **include** <a href="#parameter.mustache">parameter.mustache</a>
 * **include** <a href="#mappings.mustache">mappings.mustache</a>
 * **include** <a href="#resources.mustache">resources.mustache</a>

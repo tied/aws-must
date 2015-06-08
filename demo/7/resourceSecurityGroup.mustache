@@ -15,9 +15,9 @@ Create an EC2 Security Group
 
 **Actions**:
 
-* **Name**:  "InstanceSecurityGroup"
+* **Name**:  `Name`
 * **Type**: "AWS::EC2::SecurityGroup"
-* **Properties.SecurityGroupIngress.SSHLocation**: "SSHLocation"
+* **Properties.SecurityGroupIngress[0].CidrIp**: `IngressRef`
 
 ++close++
 

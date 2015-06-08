@@ -1,1 +1,4 @@
- 
+2015-06-08  jj  <jj@horsti>
+
+	* lib/tasks/demo.rake: Refractered from Rakefile
+
