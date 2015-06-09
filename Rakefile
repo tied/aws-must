@@ -12,6 +12,7 @@ task :default => [:usage]
 begin
 
   require "raketools_site.rb"
+  require "raketools_release.rb"
 rescue LoadError
   # puts ">>>>> Raketools not loaded, omitting tasks"
 end
@@ -36,6 +37,11 @@ namespace "dev" do |ns|
   desc "Launch guard"
   task :guard do
     sh "bundle exec guard"
+  end
+
+  desc "Build gempspec"
+  task :build do
+    sh "gem build aws-must.gemspec"
   end
 
 

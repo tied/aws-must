@@ -5,6 +5,8 @@
 
 # demo.rake
 
+require 'json'
+
 namespace "demo" do |ns|
 
   # --------------------
@@ -59,6 +61,22 @@ namespace "demo" do |ns|
   task "stack-status" do
     sh "aws cloudformation describe-stacks"
   end
+
+  desc "Ssh connection"
+  task 'stack-ssh', :instanceName  do |t, args|
+    raise "Task '#{t}' usage: #{t}[instanceName] - exiting"  if args.instanceName.nil?
+    stack = %x{ aws cloudformation describe-stacks --stack-name #{stack} }
+    raise "Error #{$?.exitstatus}" if $?.exitstatus != 0
+    stack_json = JSON.parse( stack )
+    ip_json = stack_json["Stacks"][0]['Outputs'].select { |o| o['OutputKey'] == args.instanceName }.first
+    raise "Could not find ip for instance '#{args.instanceName}'" unless ip_json
+    puts ip_json['OutputValue']
+
+    identity="-i ~/.ssh/tst/tst"
+
+    sh "ssh ubuntu@#{ip_json['OutputValue']} #{identity}"
+  end
+
 
   desc "Show events of CloudFormation stack '#{stack}'"
   task "stack-events" do

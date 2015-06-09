@@ -41,12 +41,12 @@ resources:
 
 outputs:
 
-        -  Name: InstanceId1
+        -  Name: Instance1
            Description: InstanceId of the newly created EC2 instance
            Ref:  *Resource_1
 
 
-        -  Name: PublicIP1
+        -  Name: IP1
            Description: Public IP address of the newly created EC2 instance
            Attr: 
                  Ref: *Resource_1

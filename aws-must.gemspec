@@ -7,12 +7,25 @@ $:.unshift lib unless $:.include?(lib)
 # http://guides.rubygems.org/make-your-own-gem/
 
 Gem::Specification.new do |s|
-  s.name            = 'raketools'
-  s.version         = File.open( "VERSION", "r" ) { |f| f.read }.strip
-  s.date            = '2014-09-10'
-  s.summary         = "Local helpers, namespace 'rt:'"
-  s.description     = "A simple hello world rake gem"
-  s.authors         = ["jj"]
-  s.files           = Dir.glob("*.rake").concat( Dir.glob("lib/**/*.rb") )
+
+  version           = File.open( "VERSION", "r" ) { |f| f.read }.strip.gsub( "-SNAPSHOT", ".pre" )
+
+  s.name            = 'aws-must'
+  s.version         = version
+  s.date            = Time.now.strftime( "%Y-%m-%d" )  #'2014-09-10'
+  s.summary         = "Minimum Viable Solution to Manage CloudFormation Templates'"
+  s.description     = <<EOF
+aws-must is a tool, which allows separating infrastructure
+configuration and Amazon related syntax using YAML and Mustache templates
+EOF
+  s.authors         = ["jarjuk"]
+  s.files           = ["README.md"] | Dir.glob("lib/**/*") | Dir.glob( "demo/**/*" )
   s.require_paths   = [ "lib" ]
+  s.executables     = [ "aws-must.rb" ]
+  s.license       = 'MIT'
+
+
+  s.add_dependency '1.0.1',          '1.0.1'
+
+
 end
