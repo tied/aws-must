@@ -74,6 +74,14 @@ namespace "dev" do |ns|
     sh "gem install ./aws-must-#{version}.gem"
   end
 
+  desc "Push to RubyGems"
+  task :push do
+    version = version()
+    sh "gem push ./aws-must-#{version}.gem"
+  end
+
+  desc "Unit test, release, create gem, install gem locally, snapshot"
+  task "full-delivery" => [ "dev:rspec", "rt:release", "rt:push", "dev:build", "dev:install", "rt:snapshot" ]
 
 
 end
