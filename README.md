@@ -89,9 +89,9 @@ template `./mustache/root.mustache` issue the command
 
 	aws-must.rb gen yaml_file
 
-To extract documentation between **&plus;&plus;start&plus;&plus;**
-**&plus;&plus;close&plus;&plus;** -tags from template
-`./mustache/root.mustache` issue the command
+To extract documentation between **&plus;&plus;start&plus;&plus;** and
+**&plus;&plus;close&plus;&plus;** -tags starting with template
+`./mustache/root.mustache`, issue the command
 
 	aws-must.rb doc 
 
@@ -148,18 +148,14 @@ line argument `browser`, e.g. `rake demo:html-3[chromium-browser]`.
 
 #### Use Demo to Bootstrap Own Configuration
 
-To create a copy templates and YAML configuration for demo case `i`,
-run rake task `demo:bootstrap-i` and pass command line arguments
-defining template directory and configuration directory. For example,
-to copy demo case `3` templates to directory `tmp/tmpl` and
-configurations to `tmp/conf`, run
+To create a copy of templates and YAML configuration for demo case
+`i`, run rake task `demo:bootstrap-i`, and pass template and
+configuration directories as command line arguments. For example, to
+copy demo case `3` templates to directory `tmp/tmpl`, and
+configurations to directory `tmp/conf`, run
 
     rake demo:bootstrap-3[tmp/tmpl,tmp/conf]
 	
-
-After this command `tmp/tmpl` contains `root.mustache`, which is the
-starting point of mustache template rendering, and `tmp/conf` contains
-a YAML file `conf.yaml` for demo configuration data.
 
 
 #### Demo Usage on Amazon platform
