@@ -1,5 +1,9 @@
 
 ## 0.0.2-SNAPSHOT/20150610-10:53:32
+
+* Added `rake dev:full-delivery`
+* Documentation enc
+
 ## 0.0.1/20150610-10:53:30
 
 * fist version

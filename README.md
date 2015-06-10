@@ -1,4 +1,4 @@
-# aws-must - Minimum Viable Solution to Manage CloudFormation Templates
+# aws-must - Minimum Viable Solution to Manage CloudFormation Templates - $Release:0.0.2-SNAPSHOT$
 
 `aws-must` is a tool, which allows separating infrastructure
 configuration and Amazon related syntax using
@@ -6,7 +6,7 @@ configuration and Amazon related syntax using
 [Mustache templates](https://mustache.github.io/). 
 
 
-## The problem
+## The Problem
 
 [Amazon CloudFormation](http://aws.amazon.com/cloudformation/) gives
 developers and systems administrators an easy way to create and manage
@@ -39,7 +39,8 @@ JSON format adds more to the management difficulties:
 
 ## The solution
 
-With `aws-tool` users may
+`aws-tool` helps mitigating the problems presented in the chapter
+above.  With the tool users may
 
 1.  split stack configuration first in half, using YAML/mustache
     templates, and then further down using Mustache partials
