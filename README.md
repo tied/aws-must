@@ -41,8 +41,8 @@ JSON format adds more to the management difficulties:
 
 With `aws-tool` users may
 
-1.  divide configuration task first in half (YAML/mustache templates),
-    and then further down using Mustache partials
+1.  split stack configuration first in half, using YAML/mustache
+    templates, and then further down using Mustache partials
 
 2. separate infrastructure specific configuration from syntax
    stipulated by
@@ -87,10 +87,10 @@ To create CloudFormation JSON template for `yaml_file` using default
 template `./mustache/root.mustache` issue the command
 
 	aws-must.rb gen yaml_file
-	
 
-To extract documentation from template `./mustache/root.mustache`
-issue the command
+To extract documentation between **&plus;&plus;start&plus;&plus;**
+**&plus;&plus;close&plus;&plus;** -tags from template
+`./mustache/root.mustache` issue the command
 
 	aws-must.rb doc 
 
@@ -101,12 +101,12 @@ To dump YAML `yaml_file` in JSON format
 
 ### Demo Usage
 
-Add following lines to `Rakefile`
+Add the following lines to `Rakefile`
 
-```
-spec = Gem::Specification.find_by_name 'aws-must'
-load "#{spec.gem_dir}/lib/tasks/demo.rake"
-```
+
+	spec = Gem::Specification.find_by_name 'aws-must'
+	load "#{spec.gem_dir}/lib/tasks/demo.rake"
+
 
 and verify that `demo` namespace is added to rake tasks
 
@@ -117,50 +117,48 @@ and verify that `demo` namespace is added to rake tasks
 A list of demo cases is shown with the command
 
 	rake -T demo:template
-
 	
-To show the CloudFormation JSON template for a demo case `i`, where
+To show the CloudFormation JSON rendered for a demo case `i`, where
 `i` ranges from `1,2,3, ...`, run rake task `dev:template-i`. For
 example, for demo case `1` run
 
-	rake -T demo:template-1
+	rake demo:template-1
 
-To show the difference of running case `i` vs running the previous
-demo case, run rake task `dev:diff-i`. For example, for demo case `2`
+To show the difference of running case `i` vs. running the previous
+demo case, run rake task `demo:diff-i`. For example, for demo case `2`
 run
 
-	rake -T demo:diff-2
+	rake demo:diff-2
 	
 **NOTICE:**: The [jq](http://stedolan.github.io/jq/) must be installed
 for diff target to work.
 
+To show html documentation extracted from demo case `i` templates, run
+rake task `demo:html-i`. For example, for demo case `3` run
 
-Create JSON 
+	rake demo:html-3
 
-	bin/aws-must.rb  gen configDir/conf.yaml  -t templateDir
-	
-Extract documentation from templates in `tewmplateDir`
+**NOTICE:**: Uses `markdown` command to convert
+[markdown](http://daringfireball.net/projects/markdown) documentation
+into html.
 
-	bin/aws-must.rb  doc -t templateDir
+**NOTICE:**: Default browser `firefox` can be changed using command
+line argument `browser`, e.g. `rake demo:html-3[chromium-browser]`.
 
 #### Use Demo to Bootstrap Own Configuration
 
-To create your own bootstrap configuration for demo case i, for case `3` run
+To extract your own copy of demo case `i` configuration, run rake task
+`demo:bootstrap-i` with command line arguments defining template
+directory and configuration directory. For example, to copy demo case
+`3` templates to directory `tmp/tmpl` and configurations to
+`tmp/conf`, run
 
-    rake demo:bootstrap-3[templateDir,configDir]
+    rake demo:bootstrap-3[tmp/tmpl,tmp/conf]
 	
-where 	
 
-* `templateDir` points to a directory, where mustache templates will be copied
-* `configDir` points to a directory, where demo YAML configuration
-  will be copied
-
-After this command `templateDir` contains `root.mustache`, which is
-the starting point of mustache template rendering, and `configDir`
-contains a YAML file `conf.yaml` for demo configuration data.
-
-
-
+After this command `tmp/tmpl` contains `root.mustache`, which is the
+starting point of mustache template rendering, and `tmp/conf` contains
+a YAML file `conf.yaml` for demo configuration data.
 
 
 #### Demo Usage on Amazon platform
@@ -175,7 +173,7 @@ Prerequisites:
 * [Install Amazon AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 * [Configure AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
-To list available demo targets
+To demo targets, which provision Amazon, run
 
 	rake -T demo:stack-create
 
@@ -186,36 +184,37 @@ work only if aws -tool defines correct region (typically in set in
 
 **NOTICE**: Demo-case `7,8, ...` make use of public ssh-key
 `demo-key`. See
-[Amazon EC2 Key Pairs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
-page explains for possibilities, how to upload your own key.
-
-**NOTICE**: Demo EC2 instances `7,8, ...` allow any IP address to make
-a SSH connection to the EC2 instances, i.e. they use ingnress CIRD
-`0.0.0.0/0`.
-	
+[Amazon EC2 Key Pairs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html),
+which explains how to upload your own key to Amazon platform.
 
 To create a `demo` stack for demo case `i`, for example demo case 7
 run
 
 	rake  demo:stack-create-7
 	
-To show events generated while `demo` stack is created run
+To show events generated when `demo` stack is created run
 
 	rake  demo:stack-events
 	
 To show status of `demo` stack run
 
 	rake  demo:stack-status
-	
 
-To make a ssh connection (for demo cases `7,8,...`)
+Instances created in demo cases `7,8,...` can be connected using ssh.
+Demo target `demo:stack-ssh` locates an ip address from stack output
+variable, and launches ssh command with the ip and the identity given
+as a parameter.
 
-    rake demo:stack-ssh[IP1,<private-ssh-key-file>]
+For example to use ip address in demo stack output variable `IP1`, and
+with the identity `~/.ssh/demo-key/demo-key`, run
+
+    rake demo:stack-ssh[IP1,~/.ssh/demo-key/demo-key]
 	
 where
 
-* `IP1` : is the name of stack output variable holding IP address 
-* `<private-ssh-key-file>` is the file path of ssh private key for
+* `IP1` : is the name of stack output variable holding IP address
+  (cf. Outputs array in `rake demo:stack-status`)
+* `~/.ssh/demo-key/demo-key` is the file path of ssh private key for
   [Amazon SSH-key pair](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
   `demo-key`.
 

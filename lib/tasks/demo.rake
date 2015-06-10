@@ -55,13 +55,16 @@ namespace "demo" do |ns|
       sh "aws cloudformation create-stack --stack-name #{stack}  --template-body \"$(#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml)\""
     end
 
-    desc "Open html documentation in browser"
-    task "html-#{c[:id]}" do
-      sh "#{cmd} doc -t #{demo_dir}/#{c[:id]} | markdown | firefox \"data:text/html;base64,$(base64 -w 0 <&0)\""
+    desc "Open html documentation in 'browser' (default 'firefox')"
+    task "html-#{c[:id]}", :browser  do |t,args|
+
+      args.with_defaults( browser: "firefox" )
+
+      sh "#{cmd} doc -t #{demo_dir}/#{c[:id]} | markdown | #{args.browser} \"data:text/html;base64,$(base64 -w 0 <&0)\""
     end
 
 
-    desc "Create stack #{stack} for demo case #{c[:id]}, supported regions=#{c[:region]}"
+    desc "Copy demo case #{c[:id]} to :templateDir and :configDir"
     task "bootstrap-#{c[:id]}", :templateDir,:configDir do  |t, args|
 
       usage =  "Task '#{t}' usage: #{t}[:templateDir,:configDir]" 
@@ -69,7 +72,7 @@ namespace "demo" do |ns|
       raise usage if args.configDir.nil?
 
       raise "Directory #{args.templateDir} does not exist" unless File.exists?( args.templateDir )
-      raise "Directory #{args.configDir} does not exist" unless File.exists?( args.configDir.exists? )
+      raise "Directory #{args.configDir} does not exist" unless File.exists?( args.configDir )
 
 
       puts (<<-EOS) if args.templateDir == args.configDir
