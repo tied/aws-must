@@ -148,11 +148,11 @@ line argument `browser`, e.g. `rake demo:html-3[chromium-browser]`.
 
 #### Use Demo to Bootstrap Own Configuration
 
-To extract your own copy of demo case `i` configuration, run rake task
-`demo:bootstrap-i` with command line arguments defining template
-directory and configuration directory. For example, to copy demo case
-`3` templates to directory `tmp/tmpl` and configurations to
-`tmp/conf`, run
+To create a copy templates and YAML configuration for demo case `i`,
+run rake task `demo:bootstrap-i` and pass command line arguments
+defining template directory and configuration directory. For example,
+to copy demo case `3` templates to directory `tmp/tmpl` and
+configurations to `tmp/conf`, run
 
     rake demo:bootstrap-3[tmp/tmpl,tmp/conf]
 	
@@ -174,7 +174,7 @@ Prerequisites:
 * [Install Amazon AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 * [Configure AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
-To demo targets, which provision Amazon, run
+To list demo targets, which provision Amazon, run
 
 	rake -T demo:stack-create
 
@@ -183,10 +183,6 @@ of the templates use fixed AMI configuration, which means that they
 work only if aws -tool defines correct region (typically in set in
 `~/.aws/config` file).
 
-**NOTICE**: Demo-case `7,8, ...` make use of public ssh-key
-`demo-key`. See
-[Amazon EC2 Key Pairs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html),
-which explains how to upload your own key to Amazon platform.
 
 To create a `demo` stack for demo case `i`, for example demo case 7
 run
@@ -201,23 +197,23 @@ To show status of `demo` stack run
 
 	rake  demo:stack-status
 
-Instances created in demo cases `7,8,...` can be connected using ssh.
-Demo target `demo:stack-ssh` locates an ip address from stack output
-variable, and launches ssh command with the ip and the identity given
-as a parameter.
+EC2 instances created in demo cases `7,8,...` accept ssh
+connections. 
 
-For example to use ip address in demo stack output variable `IP1`, and
-with the identity `~/.ssh/demo-key/demo-key`, run
+Demo target `demo:stack-ssh` locates an ip address from a stack output
+variable given as a parameter, and makes ssh connection to this ip
+using the ssh identity given as a parameter.
+
+For example, to use ip address in demo stack output variable `IP1`,
+and the ssh private key in `~/.ssh/demo-key/demo-key`, run
 
     rake demo:stack-ssh[IP1,~/.ssh/demo-key/demo-key]
-	
-where
 
-* `IP1` : is the name of stack output variable holding IP address
-  (cf. Outputs array in `rake demo:stack-status`)
-* `~/.ssh/demo-key/demo-key` is the file path of ssh private key for
-  [Amazon SSH-key pair](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
-  `demo-key`.
+**NOTICE**: Use `rake  demo:stack-status` to show stack output variables.
+
+**NOTICE**: The identity used must correspond to an existing
+[Amazon EC2 Key Pair](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+with the name `demo-key`.
 
 
 To delete `demo` stack
