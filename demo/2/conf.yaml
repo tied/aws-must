@@ -2,5 +2,4 @@
 
 
 description: "demo/2: a simple Amazon EC2 instance created using
-             aws-must tool.  Added 'description' tag in
-             `root.mustache`"
+             aws-must tool.  Added Description tag in root.mustache"
