@@ -1,9 +1,9 @@
 # -*- mode: ruby -*-
 
+# demo.rake
+
 # Thank You!
 # http://andyatkinson.com/blog/2014/06/23/sharing-rake-tasks-in-gems
-
-# demo.rake
 
 require 'json'
 
@@ -12,21 +12,22 @@ namespace "demo" do |ns|
   # --------------------
   # Demo configs
 
-  cmd="bin/aws-must.rb"                # generator being demonstrated
-  demo_dir="demo"                      # directory holding demo configs
-  stack="demo"                         # name of the on Amazon
+  cmd = File.join File.dirname(__FILE__), "../../bin/aws-must.rb"   # generator being demonstrated
+  demo_dir=File.join File.dirname(__FILE__), "../../demo"           # directory holding demo configs
+  stack="demo"                                                      # stack name of the on Amazon
+  default_private_key_file="~/.ssh/demo-key/demo-key"                       # private keyfile corresponding 
 
   all_regions= ["ap-northeast-1", "ap-southeast-1", "ap-southeast-2", "cn-north-1", "eu-central-1", "eu-west-1", "sa-east-1", "us-east-1", "us-gov-west-1", "us-west-1", "us-west-2"] 
 
   [ 
 
-   { :id => "1", :desc=>"Initial copy", :region=>['eu-central-1'] },
-   { :id => "2", :desc=>"Added 'description' -property to YAML file", :region=>['eu-central-1']  },
-   { :id => "3", :desc=>"Use resources.mustache -partial to create EC2 intance", :region=>['eu-central-1']   },
-   { :id => "4", :desc=>"EC2 instance configuration using YAML-data", :region=>['eu-central-1']   },
-   { :id => "5", :desc=>"Add 'Outputs' -section with reference to EC2 instance", :region=>['eu-central-1']   },
-   { :id => "6", :desc=>"Add 'Inputs' and 'Mappings' -sections to parametirize", :region=> all_regions },
-   { :id => "7", :desc=>"Added support for input parameters, EC2 tags, Instance security group", :region=>all_regions },
+   { :id => "1", :desc=>"Initial copy", :region=>['eu-central-1'], :ssh => false },
+   { :id => "2", :desc=>"Added 'description' -property to YAML file", :region=>['eu-central-1'], :ssh => false  },
+   { :id => "3", :desc=>"Use resources.mustache -partial to create EC2 intance", :region=>['eu-central-1'], :ssh => false    },
+   { :id => "4", :desc=>"EC2 instance configuration using YAML-data", :region=>['eu-central-1'], :ssh => false    },
+   { :id => "5", :desc=>"Add 'Outputs' -section with reference to EC2 instance", :region=>['eu-central-1'], :ssh => false    },
+   { :id => "6", :desc=>"Add 'Inputs' and 'Mappings' -sections to parametirize", :region=> all_regions, :ssh => false  },
+   { :id => "7", :desc=>"Added support for input parameters, EC2 tags, Instance security group", :region=>all_regions, :ssh => false  },
 
 
   ].each do  |c|
@@ -49,11 +50,48 @@ namespace "demo" do |ns|
       sh "bash -c \"diff <(#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml | jq . ) <(#{cmd} gen -t #{demo_dir}/#{prev} #{demo_dir}/#{prev}/conf.yaml | jq . ) || true \""
     end
 
-    desc "Create stack #{stack} for '#{demo_dir}/#{c[:id]}' supported regions=#{c[:region]}"
-    task "stack-#{c[:id]}" do
+    desc "Create stack #{stack} for demo case #{c[:id]}, supported regions=#{c[:region]}"
+    task "stack-create-#{c[:id]}" do
       sh "aws cloudformation create-stack --stack-name #{stack}  --template-body \"$(#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml)\""
     end
-    
+
+    desc "Open html documentation in browser"
+    task "html-#{c[:id]}" do
+      sh "#{cmd} doc -t #{demo_dir}/#{c[:id]} | markdown | firefox \"data:text/html;base64,$(base64 -w 0 <&0)\""
+    end
+
+
+    desc "Create stack #{stack} for demo case #{c[:id]}, supported regions=#{c[:region]}"
+    task "bootstrap-#{c[:id]}", :templateDir,:configDir do  |t, args|
+
+      usage =  "Task '#{t}' usage: #{t}[:templateDir,:configDir]" 
+      raise usage if args.templateDir.nil?
+      raise usage if args.configDir.nil?
+
+      raise "Directory #{args.templateDir} does not exist" unless File.exists?( args.templateDir )
+      raise "Directory #{args.configDir} does not exist" unless File.exists?( args.configDir.exists? )
+
+
+      puts (<<-EOS) if args.templateDir == args.configDir
+           
+              Warning :templateDir == :configDir == #{args.templateDir}
+              Suggestion to keep templates and configurations in a separate directory
+
+      EOS
+
+      demoTemplates = File.join demo_dir, c[:id], "*.mustache"
+      configFiles = File.join demo_dir, c[:id], "*.yaml"
+
+      Dir[demoTemplates].each { |f| 	
+        FileUtils.cp(f, args.templateDir, :verbose=>true )
+      }
+
+      Dir[configFiles].each { |f| 	
+        FileUtils.cp(f, args.configDir, :verbose=>true )
+      }
+
+    end
+
 
   end
 
@@ -62,17 +100,22 @@ namespace "demo" do |ns|
     sh "aws cloudformation describe-stacks"
   end
 
-  desc "Ssh connection"
-  task 'stack-ssh', :instanceName  do |t, args|
-    raise "Task '#{t}' usage: #{t}[instanceName] - exiting"  if args.instanceName.nil?
-    stack = %x{ aws cloudformation describe-stacks --stack-name #{stack} }
-    raise "Error #{$?.exitstatus}" if $?.exitstatus != 0
-    stack_json = JSON.parse( stack )
-    ip_json = stack_json["Stacks"][0]['Outputs'].select { |o| o['OutputKey'] == args.instanceName }.first
-    raise "Could not find ip for instance '#{args.instanceName}'" unless ip_json
-    puts ip_json['OutputValue']
+  desc "Ssh connection to ':ipName' using ':private_key' default (#{default_private_key_file})"
+  task 'stack-ssh', :ipName, :private_key  do |t, args|
 
-    identity="-i ~/.ssh/tst/tst"
+    raise "Task '#{t}' usage: #{t}[ipName,private_key] - exiting"  if args.ipName.nil?
+
+    stack_string = %x{ aws cloudformation describe-stacks --stack-name #{stack} }
+    raise "Error #{$?.exitstatus}" if $?.exitstatus != 0
+
+    args.with_defaults( private_key: default_private_key_file )
+
+    stack_json = JSON.parse( stack_string )
+    ip_json = stack_json["Stacks"][0]['Outputs'].select { |o| o['OutputKey'] == args.ipName }.first
+    raise "Could not find ip for 'ipName' '#{args.ipName}' in output section of #{stack} stack" unless ip_json
+
+    puts ip_json['OutputValue']
+    identity="-i #{args.private_key}"
 
     sh "ssh ubuntu@#{ip_json['OutputValue']} #{identity}"
   end

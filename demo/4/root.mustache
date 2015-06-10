@@ -35,21 +35,43 @@ CONTENT section
 
 ++start++
 
-# root.mustache
+# <a id="top">aws-must demo 4 templates</a>
+
+This document is generated automically from `aws-must` -demo
+templates. 
+
+
+Output contains markdown syntax between
+**&plus;&plus;start&plus;&plus;** and
+**&plus;&plus;close&plus;&plus;** -tags from the template files. For
+each template, it
+
+* gives a general description of the template
+
+* documents the attribute context e.g. `.` or `./resources/Instance`,
+  and attributes references of the template
+
+* lists template actions, i.e.  output from template, or template
+  inclusion
+
+## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
+
 
 Root template 
 
-**included templates**
 
-* `resources`
-* `resource`
-
-**Attributes**:
+**Attributes**: context= `.`
 
 * `description`: description for the CF template
 
-> resources
 
+**Actions**:
+
+* **Description**: `description`
+* **include** <a href="#resources.mustache">resources.mustache</a>
+* **for** `resource` **in** `resource` **include** <a href="#resource.mustache">resource.mustache</a>
+
+> resources
 > resource
 
 ++close++

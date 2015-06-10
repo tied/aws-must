@@ -30,9 +30,3 @@ outputs:
            Ref:  *Resource_1
 
 
-        -  Name: PublicIP1
-           Description: Public IP address of the newly created EC2 instance
-           Attr: 
-                 Ref: *Resource_1
-                 Name: PublicIp
-

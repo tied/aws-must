@@ -25,7 +25,7 @@ EOF
   s.license       = 'MIT'
 
 
-  s.add_dependency '1.0.1',          '1.0.1'
+  s.add_dependency 'mustache',          '1.0.1'
 
 
 end

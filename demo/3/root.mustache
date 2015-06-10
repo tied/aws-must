@@ -11,12 +11,10 @@ h1 {
     color:blue; 
     font-size: 2.5em;
    }
-
 h2 {
       color:blue;
       font-size: 1.5em;
    }
-
 body {
     background-color: #b0c4de;
 } 
@@ -29,13 +27,39 @@ CONTENT section
 
 ++start++
 
-# root.mustache
+# <a id="top">aws-must demo 6 templates</a>
+
+This document is generated automically from `aws-must` -demo
+templates. 
+
+
+Output contains markdown syntax between
+**&plus;&plus;start&plus;&plus;** and
+**&plus;&plus;close&plus;&plus;** -tags from the template files. For
+each template, it
+
+* gives a general description of the template
+
+* documents the attribute context e.g. `.` or `./resources/Instance`,
+  and attributes references of the template
+
+* lists template actions, i.e.  output from template, or template
+  inclusion
+
+
+
+## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
 
 Create an EC2 instance
 
-**Attributes**:
+**Attributes**: context= `.`
 
 * `description`: description for the CF template
+
+**Actions**:
+
+* **Description**: `description`
+* **include** <a href="#resources.mustache">resources.mustache</a>
 
 > resources
 

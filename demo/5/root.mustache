@@ -35,19 +35,41 @@ CONTENT section
 
 ++start++
 
-# root.mustache
+# <a id="top">aws-must demo 5 templates</a>
 
-Root template 
+This document is generated automically from `aws-must` -demo
+templates. 
 
-**included templates**
 
-* `resources`
-* `resource`
-* `output`: for each element in YAML arrays `output` render template `output`
+Output contains markdown syntax between
+**&plus;&plus;start&plus;&plus;** and
+**&plus;&plus;close&plus;&plus;** -tags from the template files. For
+each template, it
 
-**Attributes**:
+* gives a general description of the template
+
+* documents the attribute context e.g. `.` or `./resources/Instance`,
+  and attributes references of the template
+
+* lists template actions, i.e.  output from template, or template
+  inclusion
+
+
+## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
+
+Starting point of template rendering.
+
+**Attributes**: context= `.`
 
 * `description`: description for the CF template
+
+**Actions**:
+
+* **Description**: `description`
+* **include** <a href="#resources.mustache">resources.mustache</a>
+* **for** `resource` **in** `resource` **include** <a href="#resource.mustache">resource.mustache</a>
+* **for** `output` **in** `outputs` **include** <a href="#output.mustache">output.mustache</a>
+
 
 > resources
 > resource
@@ -61,8 +83,6 @@ Root template
   "AWSTemplateFormatVersion" : "2010-09-09",
 
   "Description" : "{{description}}",
-
-
 
   "Resources" : {
 

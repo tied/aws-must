@@ -15,7 +15,7 @@ parameters:
         -  Name: &Param_KeyName KeyName
            Type: "AWS::EC2::KeyPair::KeyName"
            Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
-           Value: tst
+           Value: demo-key
 
         -  Name: &Param_SSHLocation  SSHLocation
            Type: String

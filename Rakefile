@@ -17,6 +17,30 @@ rescue LoadError
   # puts ">>>>> Raketools not loaded, omitting tasks"
 end
 
+
+def version() 
+  # gemspec wants to use 'pre' and not '-SNAPSHOT'
+  return File.open( "VERSION", "r" ) { |f| f.read }.strip.gsub( "-SNAPSHOT", ".pre" )   # version number from file
+end
+
+# ------------------------------------------------------------------
+# Manage keys
+
+keyname = "demo-key"                                              
+key_file = "~/.ssh/demo-key/demo-key.pub"   
+
+desc "Initialize aws environment: import public key #{keyname} from #{key_file}"
+task "key-init" do
+  sh "aws ec2 import-key-pair --key-name #{keyname} --public-key-material \"$(cat #{key_file})\""
+end
+
+desc "Clear aws environment: delete public key #{keyname} from #{key_file}"
+task "stack-clear" do
+  sh "aws ec2 delete-key-pair --key-name #{keyname}"
+end
+
+
+
 # ------------------------------------------------------------------
 # demo
 
@@ -42,6 +66,12 @@ namespace "dev" do |ns|
   desc "Build gempspec"
   task :build do
     sh "gem build aws-must.gemspec"
+  end
+
+  desc "Install locally"
+  task :install do
+    version = version()
+    sh "gem install ./aws-must-#{version}.gem"
   end
 
 

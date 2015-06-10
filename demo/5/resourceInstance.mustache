@@ -3,16 +3,23 @@
 
 ++start++
 
-### resourceInstance.mustache
+
+
+## <a id="resourceInstance.mustache"></a>resourceInstance.mustache <a class='navigator' href='#top'">[top]</a>
 
 Create an EC2 instance
 
-**Attributes**:
+**Attributes**: context=  `./resources/Instance`
 
 * `Name`: name of the EC2 instance to create
-* `ImageId` : Provides the unique ID of the Amazon Machine Image (AMI)
-   that was assigned during registration.
 * `InstanceType` : The instance type, such as t2.micro. 
+
+**Actions**:
+
+
+* **Name**:  `Name`
+* **Type**: 'AWS::EC2::Instance'
+* **ImageId**: `ImageId`
 
 ++close++
 

@@ -3,15 +3,23 @@
 ++start++
 
 <style>
-h1 {color:blue;}
+h1 {
+    color:blue; 
+    font-size: 2.5em;
+   }
+h2 {
+      color:blue;
+      font-size: 1.5em;
+   }
 body {
     background-color: #b0c4de;
 } 
 </style>
 
 
+# <a id="top">aws-must demo 2 templates</a>
 
-# root.mustache
+## root.mustache
 
 Create an EC2 with following fixed parameters
 
@@ -21,6 +29,10 @@ Create an EC2 with following fixed parameters
 **Attributes**:
 
 * `description`: description for the CF template
+
+**Actions**:
+
+* **Description**: `description`
 
 
 ++close++
