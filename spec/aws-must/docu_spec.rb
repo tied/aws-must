@@ -113,7 +113,7 @@ MUSTACHE
 
       end
 
-      it "#'case l\nO\nL\n --> output L" do
+      it '#case l\nO\nL\n --> output L' do
 
         line1="line1"
         line2="Line2"
@@ -132,7 +132,7 @@ MUSTACHE
 
       end
 
-      it "#'case O\n\nL\n --> output L" do
+      it '#case O\n\nL\n --> output L' do
 
         line1="line1"
         line2="Line2"
@@ -154,7 +154,7 @@ MUSTACHE
 
 
 
-      it "#case lOL\n  --> output L" do
+      it '#case lOL\n  --> output L' do
 
         line1="line1"
         line2="line2"
@@ -173,7 +173,7 @@ MUSTACHE
 
 
 
-      it "#case l\nO\nL\nL\n'" do
+      it '#case l\nO\nL\nL\n' do
 
         line1="aaa"
         line2="bbb"
@@ -194,7 +194,7 @@ MUSTACHE
 
       end
 
-      it "#case lOL\nL" do
+      it '#case lOL\n' do
 
         line1="aaa"
         line2="bbb"
@@ -215,7 +215,7 @@ MUSTACHE
 
 
 
-      it "#case l\nO\nL\nC\nl\n'" do
+      it '#case l\nO\nL\nC\nl\n' do
 
         root_name="myroot_template_name"
 
@@ -239,7 +239,7 @@ MUSTACHE
 
       end
 
-      it "#case lO\nLC\nll  -> ouput L" do
+      it '#case lO\nLC\nll  -> ouput L' do
 
         root_name="myroot_template_name"
 
@@ -262,7 +262,7 @@ MUSTACHE
 
       end
 
-      it "#case lOLC\nl  -> ouput L" do
+      it '#case lOLC\nl  -> ouput L' do
 
         root_name="myroot_template_name"
 
@@ -282,7 +282,7 @@ MUSTACHE
 
       end
 
-      it "#case lOLClOL\n  -> ouput L" do
+      it '#case lOLClOL\n  -> ouput L' do
 
         root_name="myroot_template_name"
 
@@ -306,7 +306,7 @@ MUSTACHE
 
 
 
-      it "#case lOLCl\n  -> ouput L" do
+      it '#case lOLCl\n  -> ouput L' do
 
         root_name="myroot_template_name"
 
@@ -326,7 +326,7 @@ MUSTACHE
       end
 
 
-      it "#case c\nl\nO\nL\nC\nl\n'" do
+      it '#case c\nl\nO\nL\nC\nl\n' do
 
         root_name="myroot_template_name"
 
@@ -351,7 +351,7 @@ MUSTACHE
       end
 
 
-      it "#case c\nl\nO\no\nL\nC\nl\n'" do
+      it '#case c\nl\nO\no\nL\nC\nl\n' do
 
         line1="aaa"
         line2="bbb"
@@ -385,7 +385,7 @@ MUSTACHE
   describe "include template" do
 
 
-      it "#case clOLiOLCLCl'" do
+      it '#case clOLiOLCLCl' do
 
       line1_1="1_1"
       line1_2="1_2"
