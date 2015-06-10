@@ -42,12 +42,14 @@ namespace "demo" do |ns|
       sh "#{cmd} json #{demo_dir}/#{c[:id]}/conf.yaml"
     end
 
-    desc "Check the difference between version '#{c[:id]}' and '#{c[:id].to_i() -1}' "
-    task "diff-#{c[:id]}" do
-      prev = c[:id].to_i() -1
+    desc "Check the difference between version '#{c[:id]}' and :prev (default '#{c[:id].to_i() -1}') "
+    task "diff-#{c[:id]}", :prev do |t,args|
+
+      args.with_defaults( prev:  c[:id].to_i() -1 )
+
       # use bash temporary names pipes to diff two stdouts
       # Use `jq` to create canonical pretty print json
-      sh "bash -c \"diff <(#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml | jq . ) <(#{cmd} gen -t #{demo_dir}/#{prev} #{demo_dir}/#{prev}/conf.yaml | jq . ) || true \""
+      sh "bash -c \"diff <(#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml | jq . ) <(#{cmd} gen -t #{demo_dir}/#{args.prev} #{demo_dir}/#{args.prev}/conf.yaml | jq . ) || true \""
     end
 
     desc "Create stack #{stack} for demo case #{c[:id]}, supported regions=#{c[:region]}"
