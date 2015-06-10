@@ -1,5 +1,5 @@
 
-## 0.0.3-SNAPSHOT/20150610-12:17:13
+## 0.0.3/20150610-15:22:38
 
 * `rake  demo:diff`: added the possibility choose prev demo case
 * Documentation clarification
