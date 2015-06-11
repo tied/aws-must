@@ -17,6 +17,6 @@ parameters:
 resources:
 
         -  Instance: 
-                 Name: &Resource_1 MyEC2Instance
+                 Name: MyEC2Instance
                  ImageId: ami-00dae61d
-                 InstanceType: *Param_InstanceType
+                 InstanceType: t2.micro
