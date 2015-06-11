@@ -1,0 +1,48 @@
+{{!
+
+
+++start++
+
+
+## <a id="resourceInstanceChef.mustache"></a>resourceInstanceChef.mustache<a class='navigator' href='#top'">[top]</a>
+
+UserData -script to install Chef
+
+**Attributes**: context=  `./resources/Instance/InstallChef`
+
+* `Version`: Chef version to install
+
+**Actions**:
+
+* /bin/bash
+  * CHEF_VERSION=`Version`
+  * LOG="/tmp/install.log"
+  * `curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -v $CHEF_VERSION  >>$LOG 2>&1`
+
+
+++close++
+
+}}
+
+
+
+        "Fn::Base64": { "Fn::Join": [
+                "\n",
+                [
+                    "#!/bin/bash",
+                    "set -x\n",
+                    "set -o pipefail\n",
+		    "LOG=/tmp/install.log\n",
+                    "function finish() {\n",
+		          "echo \"$(date): chef installation finished\" >> $LOG\n",
+                    "}\n",
+                    "trap finish EXIT\n",
+           	    "CHEF_VERSION={{Version}}\n",
+                    "echo $(date): starting to install chef  > $LOG\n",
+		    "curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -v $CHEF_VERSION  >>$LOG 2>&1\n",
+                    "echo $(date): chef installed successfully >> $LOG\n"
+               ]
+             ]}
+
+
+

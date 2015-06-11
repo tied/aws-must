@@ -1,0 +1,38 @@
+{{!
+
+
+++start++
+
+## <a id="parameter.mustache"></a>parameter.mustache <a class='navigator' href='#top'">[top]</a>
+
+Create one parameter entry to CloudFormation JSON parameter section
+
+**Attributes**: context= `./parameters`
+
+* `Name` : of the ouput entry
+* `Description`: of the parameter entry
+* `Type`: The data type of [CloudFormation
+  Parameter](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html),
+  e.g. `String`, `AWS::EC2::KeyPair::KeyName`
+* `Value`: value of the parameter
+
+
+**Actions**:
+
+* **Name**: `Name`
+* **Description**: `Description`
+* **Type**: `Type`
+* **Default**: `Value`
+
+++close++
+
+}}
+
+
+
+
+    "{{Name}}": {
+      "Description" : "{{Description}}{{^Description}}No description given{{/Description}}",
+      "Type": "{{Type}}",
+      "Default" : "{{Value}}"
+    }{{_comma}}

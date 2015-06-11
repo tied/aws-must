@@ -1,9 +1,9 @@
 # aws-must - Minimum Viable Solution to Manage CloudFormation Templates - $Release:0.0.4-SNAPSHOT$
 
 `aws-must` is a tool, which allows separating infrastructure
-configuration and Amazon related syntax using
-[YAML](http://learnxinyminutes.com/docs/yaml) and
-[Mustache templates](https://mustache.github.io/). 
+configuration and Amazon related syntax in CloudFormation JSON
+templates using [YAML](http://learnxinyminutes.com/docs/yaml) and
+[Mustache templates](https://mustache.github.io/).
 
 
 ## The Problem

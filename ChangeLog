@@ -1,3 +1,13 @@
+2015-06-11  jj  <jj@horsti>
+
+	* lib/tasks/demo.rake: added demo-case 8
+
+	* demo/8/resourceInstanceChef.mustache: template added
+
+2015-06-10  jj  <jj@horsti>
+
+	* demo/4/conf.yaml (resources): Do not use anchors.
+
 2015-06-08  jj  <jj@horsti>
 
 	* lib/tasks/demo.rake: Refractered from Rakefile

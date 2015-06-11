@@ -1,0 +1,30 @@
+{{!
+
+
+++start++
+
+## <a id="tag.mustache"></a>tag.mustache <a class='navigator' href='#top'">[top]</a>
+
+One key-value pair in EC2 instance Tags -array
+
+**Attributes**: context= `./resources/Instance/tags`
+
+* `Key`: of the tag entry
+* `Value`: of the tag entry
+
+**Actions**:
+
+* **Key**: `Name`
+* **Value**: `Value`
+
+
+
+++close++
+
+
+
+}}
+
+{ "Key" : "{{Key}}",  "Value" : "{{Value}}"{{_comma}} }
+
+

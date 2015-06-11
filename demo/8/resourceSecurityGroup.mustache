@@ -1,0 +1,37 @@
+{{!
+
+
+++start++
+
+
+## <a id="resourceSecurityGroup.mustache"></a>resourceSecurityGroup.mustache <a class='navigator' href='#top'">[top]</a>
+
+Create an EC2 Security Group
+
+**Attributes**: context=  `./resources/InstanceSecurityGroup`
+
+* `Name` : of the security group
+* `IngressRef`: A refernce to parameter, which defined CIDR for to inbound traffic (ingress)
+
+**Actions**:
+
+* **Name**:  `Name`
+* **Type**: "AWS::EC2::SecurityGroup"
+* **Properties.SecurityGroupIngress[0].CidrIp**: `IngressRef`
+
+++close++
+
+}}
+
+    "{{Name}}" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Enable SSH access via port 22",
+        "SecurityGroupIngress" : [ {
+          "IpProtocol" : "tcp",
+          "FromPort" : "22",
+          "ToPort" : "22",
+          "CidrIp" : { "Ref" : "{{IngressRef}}"}
+        } ]
+      }
+    }{{_comma}}
