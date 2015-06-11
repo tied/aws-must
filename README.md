@@ -216,10 +216,15 @@ To delete `demo` stack
 
 	rake  demo:stack-delete
 
+	
+## Development
+
+See [RELEASES](RELEASES.md)
 
 	
-	
+## License 
 
+MIT
 
 
 	 
