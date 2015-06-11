@@ -1,4 +1,5 @@
 
+## 0.0.5-SNAPSHOT/20150611-11:57:11
 ## 0.0.4/20150611-11:57:05
 
 * added paramter `with_adjust` to `aws-must.rb json` command 
