@@ -28,12 +28,15 @@ module AwsMust
     # ------------------------------------------------------------------
     # dump 'yaml_file' as json
 
-    def json( yaml_file ) 
+    def json( yaml_file, with_adjust=true ) 
 
       @logger.debug( "#{__method__}, template_name '#{yaml_file}'" )
 
       # 
       data = read_yaml_file( yaml_file )
+
+      # adjust optionanlly
+      data = adjust( data ) if with_adjust
 
       puts data.to_json
 

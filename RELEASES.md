@@ -1,6 +1,7 @@
 
 ## 0.0.4-SNAPSHOT/20150610-15:22:45
 
+* added paramter `with_adjust` to `aws-must.rb json` command 
 * added demo case 8 (installs Chef)
 
 ## 0.0.3/20150610-15:22:38

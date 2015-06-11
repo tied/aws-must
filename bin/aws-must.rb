@@ -44,19 +44,48 @@ LONGDESC
   # ------------------------------------------------------------------
   # action 'json'
 
-  desc "json <yaml_file>", "Dump configuration in JSON format"
+  desc "json <yaml_file> [with_adjust]", "Dump configuration in JSON format (with or without adjustment)"
 
   long_desc <<-LONGDESC
 
-  Reads <yaml_file> and dumps it to stdout in JSON format.
+  Reads <yaml_file> and dumps it to stdout in JSON format
+  'with_adjust' (yes/no)
+
+  By default 'adjusts' data, i.e. adds property "_comma" with the
+  value "," to each sub document expect the last one in an array.
+
+  The "_comma" -property helps in generating valid json arrays in
+  mustache templates. For example, YAML construct
+
+    tags:
+       - Key: key1
+         Value: value1
+
+       - Key: key2
+         Value: value2
+
+  and Mustache template snippet
+
+  { "Tags" : [ 
+       {{#tags}}
+           { "Key" : "{{Key}}",  "Value" : "{{Value}}"{{_comma}} }
+       {{/tags}} 
+  ]}
+
+  results to valid JSON document
+
+  { "Tags" : [ 
+           { "Key" : "key1",  "Value" : "value1", 
+           { "Key" : "key2",  "Value" : "value2"
+  ]}
 
 LONGDESC
 
 
-  def json( yaml_file )
+  def json( yaml_file, with_adjust="true" )
 
     app = ::AwsMust::AwsMust.new( options )
-    app.json( yaml_file )
+    app.json( yaml_file, with_adjust =~ /^true$/ || with_adjust =~ /^yes$/  ? true : false  )
 
   end
 

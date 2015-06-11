@@ -38,9 +38,12 @@ namespace "demo" do |ns|
       sh "#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml"
     end
 
-    desc "Output configs in '#{demo_dir}/#{c[:id]}' in JSON to demonstrate '#{c[:desc]}'"
-    task "json-#{c[:id]}" do
-      sh "#{cmd} json #{demo_dir}/#{c[:id]}/conf.yaml"
+    desc "Output configs in '#{demo_dir}/#{c[:id]}' in JSON with/without adjustment (default: yes/no)"
+    task "json-#{c[:id]}", :with_adjust do |t, args|
+
+      args.with_defaults( with_adjust:  "yes" )
+
+      sh "#{cmd} json #{demo_dir}/#{c[:id]}/conf.yaml #{args.with_adjust}" 
     end
 
     desc "Check the difference between version '#{c[:id]}' and :prev (default '#{c[:id].to_i() -1}') "
