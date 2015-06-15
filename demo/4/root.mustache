@@ -35,7 +35,21 @@ CONTENT section
 
 ++start++
 
-# <a id="top">aws-must demo 4 templates</a>
+# <a id="top">aws-must demo 4 template</a>
+
+Creates a EC2 instances using YAML configuration defining `ImageId`
+(e.g. ami-00dae61d) and `InstanceType` (e.g. t2.micro).
+
+
+Supports only region `eu-central-1`. No ssh connection allowed by
+default.
+
+**Parameters**:
+
+* `InstanceType`: EC2 resource instance type, (default: t2.micro)
+
+
+## Document Content
 
 This document is generated automically from `aws-must` -demo
 templates. 

@@ -37,7 +37,33 @@ CONTENT section
 
 ++start++
 
-# <a id="top">aws-must demo 7 templates</a>
+# <a id="top">aws-must demo 7 template</a>
+
+Creates 
+
+* **EC2 SecurityGroup** allowing ssh via port 22 from a location given
+    as `SSHLocation` parameter
+
+* **EC2 instances** using YAML parameter `InstanceType`
+  (e.g. t2.micro).
+
+  * `ImageId` of the AMI is determined using CloudFormation mapping on
+    `InstanceType` and region. Supported regions are ap-northeast-1,
+    ap-southeast-1, ap-southeast-2, cn-north-1, eu-central-1,
+    eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1,
+    us-west-2.  
+
+  * output section contains references to InstanceId and PublicId of
+    the newly created EC2 instance.
+
+
+**Parameters**:
+
+* `InstanceType`: EC2 resource instance type, (default: t2.micro)
+* `KeyName` : Name of an existing EC2 KeyPair to enable SSH access to the instance, (default: demo-key)
+* `SSHLocation`: The IP address range that can be used to SSH to the EC2 instances default: 0.0.0.0/0)
+
+## Document Content
 
 This document is generated automically from `aws-must` -demo
 templates. 
