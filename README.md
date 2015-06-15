@@ -53,10 +53,11 @@ above.  With the tool users may
 3. use YAML anchors to express dependencies between infrastructure
    elements.
 
-4. add comments in YAML and Mustache templates. The tool supports
+4. add comments in YAML and Mustache templates. The tool supports a
    simple tag syntax (**&plus;&plus;start&plus;&plus;**
    **&plus;&plus;close&plus;&plus;** -tags) to add documentation to
-   Mustache templates, which can be extracted to a separate document.
+   Mustache templates, and command to extract the documentation from
+   template files.
 
 5. use Mustache partials to get rid of repeating similar sections in
    JSON configuration.
@@ -134,8 +135,8 @@ run
 **NOTICE:**: The [jq](http://stedolan.github.io/jq/) must be installed
 for diff target to work.
 
-To show html documentation extracted from demo case `i` templates, run
-rake task `demo:html-i`. For example, for demo case `3` run
+To show html documentation extracted from demo case `i`, run rake task
+`demo:html-i`. For example, for demo case `3` run
 
 	rake demo:html-3
 
@@ -148,13 +149,13 @@ line argument `browser`, e.g. `rake demo:html-3[chromium-browser]`.
 
 #### Use Demo to Bootstrap Own Configuration
 
-To create a copy of templates and YAML configuration for demo case
-`i`, run rake task `demo:bootstrap-i`, and pass template and
+To create a copy of templates and YAML configuration for demo case `i`, 
+run rake task `demo:bootstrap-i`, and pass template and
 configuration directories as command line arguments. For example, to
-copy demo case `3` templates to directory `tmp/tmpl`, and
+copy demo case `4` templates to directory `tmp/tmpl`, and
 configurations to directory `tmp/conf`, run
 
-    rake demo:bootstrap-3[tmp/tmpl,tmp/conf]
+    rake demo:bootstrap-4[tmp/tmpl,tmp/conf]
 	
 
 
@@ -170,18 +171,17 @@ Prerequisites:
 * [Install Amazon AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 * [Configure AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
-To list demo targets, which provision Amazon, run
+To list demo targets provisioning Amazon run
 
 	rake -T demo:stack-create
 
-**NOTICE**: Please, notice the region constraint in the output. Some
-of the templates use fixed AMI configuration, which means that they
-work only if aws -tool defines correct region (typically in set in
-`~/.aws/config` file).
+**NOTICE**: the region constraint in the output. Some of the templates
+use fixed AMI configuration, which means that they work only if aws
+-tool defines correct region (typically in set in `~/.aws/config`
+file).
 
 
-To create a `demo` stack for demo case `i`, for example demo case 7
-run
+To create a `demo` stack for demo case `7` run
 
 	rake  demo:stack-create-7
 	
@@ -193,8 +193,8 @@ To show status of `demo` stack run
 
 	rake  demo:stack-status
 
-EC2 instances created in demo cases `7,8,...` accept ssh
-connections. 
+EC2 instances created in demo cases `7,8,...` accept ssh connections
+via port 22.
 
 Demo target `demo:stack-ssh` locates an ip address from a stack output
 variable given as a parameter, and makes ssh connection to this ip
