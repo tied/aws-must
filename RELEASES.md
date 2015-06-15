@@ -1,4 +1,5 @@
 
+## 0.0.6-SNAPSHOT/20150615-10:31:36
 ## 0.0.5/20150615-10:31:24
 
 * added documentation to `rake demo:html-i`
