@@ -6,6 +6,13 @@ templates using [YAML](http://learnxinyminutes.com/docs/yaml) and
 [Mustache templates](https://mustache.github.io/).
 
 
+See blog posts
+[1](https://jarjuk.wordpress.com/2015/06/15/love-aws-part1-5),
+[2](https://jarjuk.wordpress.com/2015/06/15/love-aws-part2-2), and
+[3](https://jarjuk.wordpress.com/2015/06/15/love-aws-part3-2/) for
+background information on this tool.
+
+
 ## The Problem
 
 [Amazon CloudFormation](http://aws.amazon.com/cloudformation/) gives
