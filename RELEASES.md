@@ -1,4 +1,5 @@
 
+## 0.0.7-SNAPSHOT/20150617-16:50:31
 ## 0.0.6/20150617-16:50:24
 
 * sync with [blog post](https://jarjuk.wordpress.com/2015/06/15/love-aws-part3-2/)
