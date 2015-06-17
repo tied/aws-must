@@ -7,7 +7,6 @@ STYLE section
 ==================================================================
 
 ++start++
-
 <style>
 h1 {
     color:blue; 
@@ -20,6 +19,9 @@ h2 {
 h3 {
       color:blue;
       font-size: 1.5em;
+   }
+.navigator {
+      font-size: 0.5em;
    }
 body {
     background-color: #b0c4de;
@@ -37,20 +39,20 @@ CONTENT section
 
 # <a id="top">aws-must demo 5 template</a>
 
-Creates EC2 instances using YAML configuration defining `ImageId`
-(e.g. ami-00dae61d) and `InstanceType` (e.g. t2.micro).  Output
-section contains references to InstanceId and PublicId of the newly
-created EC2 instance.
-
-Supports only region `eu-central-1`. No ssh connection allowed by
-default.
+Creates EC2 instances using YAML configuration defining `InstanceType`
+(e.g. t2.micro).  `ImageId` of the AMI is determined using
+CloudFormation mapping on `InstanceType` and region. Supported regions
+are ap-northeast-1, ap-southeast-1, ap-southeast-2, cn-north-1,
+eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1,
+us-west-1, us-west-2.  Output section contains references to
+InstanceId and PublicId of the newly created EC2 instance.
 
 **Parameters**:
 
 * `InstanceType`: EC2 resource instance type, (default: t2.micro)
 
 
-
+No ssh connection allowed by default.
 
 ## Document Content
 
@@ -71,6 +73,30 @@ each template, it
 * lists template actions, i.e.  output from template, or template
   inclusion
 
+### Table of contents
+<ul>
+
+<li><a href="#root.mustache">root.mustache</a>: root template =
+starting point of template rendering</li>
+
+<li><a href="#mappings.mustache">mappings.mustache</a>matches a key to
+a corresponding set of named values</li>
+
+<li>Resources</li>
+
+<ul>
+
+<li><a href="#resources.mustache">resources.mustache</a>: fixed
+resources</li>
+
+<li><a href="#resource.mustache">resource.mustache</a>: dispatch
+resource based on resource type</li> <li><a
+href="#resourceInstance.mustache">resourceInstance.mustache</a>create
+an EC2 instance</li>
+
+</ul><li><a href="#output.mustache">output.mustache</a>:values in
+response to describe stack calls </li> </ul>
+
 
 ## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
 
@@ -83,14 +109,17 @@ Starting point of template rendering.
 **Actions**:
 
 * **Description**: `description`
+* **include** <a href="#mappings.mustache">mappings.mustache</a>
 * **include** <a href="#resources.mustache">resources.mustache</a>
 * **for** `resource` **in** `resource` **include** <a href="#resource.mustache">resource.mustache</a>
 * **for** `output` **in** `outputs` **include** <a href="#output.mustache">output.mustache</a>
 
 
+> mappings
 > resources
 > resource
 > output
+
 
 ++close++
 
@@ -100,6 +129,10 @@ Starting point of template rendering.
   "AWSTemplateFormatVersion" : "2010-09-09",
 
   "Description" : "{{description}}",
+
+  "Mappings" : {
+    {{> mappings }}
+   },
 
   "Resources" : {
 

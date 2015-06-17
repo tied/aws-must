@@ -3,6 +3,8 @@
 
 ++start++
 
+
+
 ## <a id="resourceInstance.mustache"></a>resourceInstance.mustache <a class='navigator' href='#top'">[top]</a>
 
 Create an EC2 instance
@@ -10,13 +12,15 @@ Create an EC2 instance
 **Attributes**: context=  `./resources/Instance`
 
 * `Name`: name of the EC2 instance to create
-* `ImageId`: AIM id to create
+* `InstanceType` : The instance type, such as t2.micro. 
 
 **Actions**:
+
 
 * **Name**:  `Name`
 * **Type**: 'AWS::EC2::Instance'
 * **ImageId**: `ImageId`
+* **SecurityGroups.Ref**: `SecurityGroup` if `SecurityGroup`
 
 ++close++
 
@@ -26,7 +30,8 @@ Create an EC2 instance
     "{{Name}}" : {
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
-        "ImageId" : "{{ImageId}}",
-        "InstanceType" : "{{InstanceType}}"
-      } {{! Propertites }}
+        "ImageId" : "{{ImageId}}"
+        , "InstanceType" : "{{InstanceType}}"
+        {{#SecurityGroup}}, "SecurityGroups" : [ { "Ref" : "{{SecurityGroup}}" } ]{{/SecurityGroup}}
+      }
     }{{_comma}}

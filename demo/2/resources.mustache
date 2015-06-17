@@ -1,28 +1,21 @@
 {{! 
 
+    resources.mustache - fixed resources
+
 ++start++
 
 ## <a id="resources.mustache"></a>resources.mustache <a class='navigator' href='#top'">[top]</a>
 
-Empty template.
+Create an EC2 with following fixed parameters
 
-**Attributes**: context=  `.`
-
-* none
-
-
-**Actions**:
-
-* no action (i.e. empty template)
-
+* `ImageId` : "ami-00dae61d",
+* `InstanceType` : "t2.micro"
 
 ++close++
 
 
 }}
-{{! 
 
-    Moved to YAML
 
     "MyEC2Instance" : {
       "Type" : "AWS::EC2::Instance",
@@ -31,5 +24,3 @@ Empty template.
         "InstanceType" : "t2.micro"
       }
     }
-
-}}

@@ -1,22 +1,27 @@
--- demo/2 : added description property
-
-
-description: "demo/4: a simple Amazon EC2 instance created using aws-must tool.
-	     The resource created are in defined in YAML configuration, and
-	     the JSON template should not change."
-
-
-parameters:
-
-        -  Name: InstanceType
-           Type: String
-           Description: EC2 reousrce instance type
-           Value: &Param_InstanceType t2.micro
-
+description: "demo/4: A simple Amazon EC2 instance created using aws-must tool"
 
 resources:
 
+        - InstanceSecurityGroup:
+                 Name: &DefaultSG MyDefaultSecurityGroup
+                 IngressCidrIp: "0.0.0.0/0"
+
         -  Instance: 
-                 Name: MyEC2Instance
+                 Name: &Resource_1 MyEC2Instance
                  ImageId: ami-00dae61d
                  InstanceType: t2.micro
+                 SecurityGroup: *DefaultSG
+
+
+outputs:
+
+        -  Name: InstanceId1
+           Description: InstanceId of the newly created EC2 instance
+           Ref:  *Resource_1
+
+
+        -  Name: IP1
+           Description: Public IP address of the newly created EC2 instance
+           Attr: 
+                 Ref: *Resource_1
+                 Name: PublicIp

@@ -1,7 +1,11 @@
 {{!
 
-++start++
 
+==================================================================
+STYLE section
+==================================================================
+
+++start++
 <style>
 h1 {
     color:blue; 
@@ -15,71 +19,26 @@ body {
     background-color: #b0c4de;
 } 
 </style>
+++close++
+}}
 
+{{!
+++start++
 
 # <a id="top">aws-must demo 2 template</a>
 
-## root.mustache
+Create an EC2 with following fixed parnameters `ImageId`
+("ami-00dae61d") and `InstanceType` ("t2.micro")
 
-Create an EC2 with following fixed parameters
-
-* `ImageId` : "ami-00dae61d",
-* `InstanceType` : "t2.micro"
-
-Supports only region `eu-central-1`. No ssh connection allowed by
-default.
-
-**Parameters**:
-
-* no parameters
-
-
-## Document Content
-
-This document is generated automically from `aws-must` -demo
-templates. 
-
-
-Output contains markdown syntax between
-**&plus;&plus;start&plus;&plus;** and
-**&plus;&plus;close&plus;&plus;** -tags from the template files. For
-each template, it
-
-* gives a general description of the template
-
-* documents the attribute context e.g. `.` or `./resources/Instance`,
-  and attributes references of the template
-
-* lists template actions, i.e.  output from template, or template
-  inclusion
-
-
-## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
-
-
-**Attributes**: context= `.`
-
-* `description`: description for the CF template
-
-**Actions**:
-
-* **Description**: `description`
-
+> resources
 
 ++close++
-
 }}
 
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
   "Description" : "{{description}}",
   "Resources" : {
-    "MyEC2Instance" : {
-      "Type" : "AWS::EC2::Instance",
-      "Properties" : {
-        "ImageId" : "ami-00dae61d",
-        "InstanceType" : "t2.micro"
-      }
-    }
+    {{> resources }}
   }
 }

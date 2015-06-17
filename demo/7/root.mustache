@@ -41,8 +41,9 @@ CONTENT section
 
 Creates 
 
-* **EC2 SecurityGroup** allowing ssh via port 22 from a location given
-    as `SSHLocation` parameter
+* **EC2 SecurityGroup** allowing ssh via port 22 from a location
+    given as `SSHLocation` parameter
+
 
 * **EC2 instances** using YAML parameter `InstanceType`
   (e.g. t2.micro).
@@ -53,15 +54,19 @@ Creates
     eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1,
     us-west-2.  
 
+  * optionally installs Chef to the EC2 instance with a version given
+    as `ChefVersion` parameter
+
   * output section contains references to InstanceId and PublicId of
     the newly created EC2 instance.
-
 
 **Parameters**:
 
 * `InstanceType`: EC2 resource instance type, (default: t2.micro)
 * `KeyName` : Name of an existing EC2 KeyPair to enable SSH access to the instance, (default: demo-key)
 * `SSHLocation`: The IP address range that can be used to SSH to the EC2 instances default: 0.0.0.0/0)
+* `ChefVersion`: Chef version to install, (default: 11.18)
+
 
 ## Document Content
 
@@ -113,6 +118,9 @@ href="#resourceInstance.mustache">resourceInstance.mustache</a>:
 create an EC2 instance</li>
 
 <ul><li><a href="#tag.mustache">tag.mustache</a>: add key-value tag property
+to an</li>
+
+<li><a href="#resourceInstanceChef.mustache">resourceInstanceChef.mustache</a>: UserData -script to install Chef
 to an</li><ul>
 
 </ul></ul></ul></ul>

@@ -1,10 +1,10 @@
 -- demo/2 : added description property
 
 
-description: "demo/5: A simple Amazon EC2 instance created using aws-must tool
+description: "demo/6 - A simple Amazon EC2 instance created using aws-must tool
              - Minimum Viable Solution to Manage CloudFormation
-             Templates. This version adds Output section with references
-             to InstanceId and PublicId of the newly created EC2 instance'."
+             Templates. This version uses AWSInstanceType2Arch and AWSRegionArch2AMI 
+             to define 64bit hmv 't2.micro' instances AMIs for several Amazon regions."
 
 
 parameters:
@@ -19,7 +19,6 @@ resources:
 
         -  Instance: 
                  Name: &Resource_1 MyEC2Instance
-                 ImageId: ami-00dae61d
                  InstanceType: *Param_InstanceType
 
 

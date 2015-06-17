@@ -39,20 +39,29 @@ CONTENT section
 
 # <a id="top">aws-must demo 6 template</a>
 
-Creates EC2 instances using YAML configuration defining `InstanceType`
-(e.g. t2.micro).  `ImageId` of the AMI is determined using
-CloudFormation mapping on `InstanceType` and region. Supported regions
-are ap-northeast-1, ap-southeast-1, ap-southeast-2, cn-north-1,
-eu-central-1, eu-west-1, sa-east-1, us-east-1, us-gov-west-1,
-us-west-1, us-west-2.  Output section contains references to
-InstanceId and PublicId of the newly created EC2 instance.
+Creates 
+
+* **EC2 SecurityGroup** allowing ssh via port 22 from a location given
+    as `SSHLocation` parameter
+
+* **EC2 instances** using YAML parameter `InstanceType`
+  (e.g. t2.micro).
+
+  * `ImageId` of the AMI is determined using CloudFormation mapping on
+    `InstanceType` and region. Supported regions are ap-northeast-1,
+    ap-southeast-1, ap-southeast-2, cn-north-1, eu-central-1,
+    eu-west-1, sa-east-1, us-east-1, us-gov-west-1, us-west-1,
+    us-west-2.  
+
+  * output section contains references to InstanceId and PublicId of
+    the newly created EC2 instance.
+
 
 **Parameters**:
 
 * `InstanceType`: EC2 resource instance type, (default: t2.micro)
-
-
-No ssh connection allowed by default.
+* `KeyName` : Name of an existing EC2 KeyPair to enable SSH access to the instance, (default: demo-key)
+* `SSHLocation`: The IP address range that can be used to SSH to the EC2 instances default: 0.0.0.0/0)
 
 ## Document Content
 
@@ -68,7 +77,7 @@ each template, it
 * gives a general description of the template
 
 * documents the attribute context e.g. `.` or `./resources/Instance`,
-  and attributes references of the template
+  and attributes referenced within the template
 
 * lists template actions, i.e.  output from template, or template
   inclusion
@@ -78,6 +87,9 @@ each template, it
 
 <li><a href="#root.mustache">root.mustache</a>: root template =
 starting point of template rendering</li>
+
+<li><a href="#parameter.mustache">parameter.mustache</a>: create one
+parameter entry to CloudFormation JSON parameter section</li>
 
 <li><a href="#mappings.mustache">mappings.mustache</a>matches a key to
 a corresponding set of named values</li>
@@ -90,11 +102,22 @@ a corresponding set of named values</li>
 resources</li>
 
 <li><a href="#resource.mustache">resource.mustache</a>: dispatch
-resource based on resource type</li> <li><a
-href="#resourceInstance.mustache">resourceInstance.mustache</a>create
-an EC2 instance</li>
+resource based on resource type</li>
 
-</ul><li><a href="#output.mustache">output.mustache</a>:values in
+<ul> <li><a
+href="#resourceSecurityGroup.mustache">resourceSecurityGroup.mustache.mustache</a>:
+create an security group for accessing EC2 instances</li>
+
+<li><a
+href="#resourceInstance.mustache">resourceInstance.mustache</a>:
+create an EC2 instance</li>
+
+<ul><li><a href="#tag.mustache">tag.mustache</a>: add key-value tag property
+to an</li><ul>
+
+</ul></ul></ul></ul>
+
+<li><a href="#output.mustache">output.mustache</a>: values in
 response to describe stack calls </li> </ul>
 
 
@@ -105,16 +128,22 @@ Starting point of template rendering.
 **Attributes**: context= `.`
 
 * `description`: description for the CF template
+* `parameters`: array of parameter sub-documents for CloudFormation Parameters -section
+* `resources`: array of resource sub-documents for CloudFormation Resources -section
+* `outputs`: array of output sub-documents for CloudFormation Outputs -section
+
 
 **Actions**:
 
 * **Description**: `description`
+* **for** `parameter` **in** `parameters`  **include** <a href="#parameter.mustache">parameter.mustache</a>
 * **include** <a href="#mappings.mustache">mappings.mustache</a>
 * **include** <a href="#resources.mustache">resources.mustache</a>
 * **for** `resource` **in** `resource` **include** <a href="#resource.mustache">resource.mustache</a>
 * **for** `output` **in** `outputs` **include** <a href="#output.mustache">output.mustache</a>
 
 
+> parameter
 > mappings
 > resources
 > resource
@@ -129,6 +158,10 @@ Starting point of template rendering.
   "AWSTemplateFormatVersion" : "2010-09-09",
 
   "Description" : "{{description}}",
+
+  "Parameters" : {
+    {{# parameters }}{{> parameter }}{{/ parameters }}
+  },
 
   "Mappings" : {
     {{> mappings }}

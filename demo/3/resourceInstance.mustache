@@ -3,7 +3,6 @@
 
 ++start++
 
-
 ## <a id="resourceInstance.mustache"></a>resourceInstance.mustache <a class='navigator' href='#top'">[top]</a>
 
 Create an EC2 instance
@@ -11,14 +10,13 @@ Create an EC2 instance
 **Attributes**: context=  `./resources/Instance`
 
 * `Name`: name of the EC2 instance to create
-* `InstanceType` : The instance type, such as t2.micro. 
-
+* `ImageId`: AIM id to create
 
 **Actions**:
 
 * **Name**:  `Name`
 * **Type**: 'AWS::EC2::Instance'
-* **ImageId**: **AWSRegionArch2AMI**( 'AWS::Region', **AWSInstanceType2Arch**(`InstanceType`))
+* **ImageId**: `ImageId`
 
 ++close++
 
@@ -28,8 +26,7 @@ Create an EC2 instance
     "{{Name}}" : {
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
-        "ImageId" : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" },
-	 	    { "Fn::FindInMap" : [ "AWSInstanceType2Arch", "{{InstanceType}}", "Arch" ] } ] },
+        "ImageId" : "{{ImageId}}",
         "InstanceType" : "{{InstanceType}}"
-      } {{! Propertites }}
+      }
     }{{_comma}}

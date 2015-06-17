@@ -1,9 +1,7 @@
--- demo/2 : added description property
-
 
 description: "demo/7 - A simple Amazon EC2 instance created using aws-must tool
              - Minimum Viable Solution to Manage CloudFormation
-             Templates. This adds support for EC2 intance tags, parameters, and security group"
+             Templates. Adds support installing Chef"
 
 parameters:
 
@@ -22,6 +20,11 @@ parameters:
            Description: The IP address range that can be used to SSH to the EC2 instances
            Value: "0.0.0.0/0"
 
+        -  Name: ChefVersion
+           Type: String
+           Description: Chef version to install
+           Value: &Param_ChefVersion 11.18
+
 
 resources:
 
@@ -34,6 +37,8 @@ resources:
                  InstanceType: *Param_InstanceType
                  KeyName: *Param_KeyName
                  SecurityGroup: *DefaultSG
+                 InstallChef: 
+                    - Version: *Param_ChefVersion
                  tags:
                     - Key: demotag1
                       Value: demotag1 value

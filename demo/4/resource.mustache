@@ -12,7 +12,6 @@ Dispatches resource sub-type templates based resource Type propertys
 
 * `Instance`: sub-document defining an EC instance
 
-
 **Actions**:
 
 * include <a href="#resourceInstance.mustache">resourceInstance.mustache</a> if `Instance` 
@@ -25,3 +24,4 @@ Dispatches resource sub-type templates based resource Type propertys
 }}
 
 {{# Instance }}{{> resourceInstance}}{{/ Instance }}
+{{# InstanceSecurityGroup }}{{> resourceSecurityGroup}}{{/ InstanceSecurityGroup }}

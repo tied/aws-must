@@ -22,13 +22,12 @@ namespace "demo" do |ns|
   [ 
 
    { :id => "1", :desc=>"Initial copy", :region=>['eu-central-1'], :ssh => false },
-   { :id => "2", :desc=>"Added 'description' -property to YAML file", :region=>['eu-central-1'], :ssh => false  },
-   { :id => "3", :desc=>"Use resources.mustache -partial to create EC2 intance", :region=>['eu-central-1'], :ssh => false    },
-   { :id => "4", :desc=>"EC2 instance configuration using YAML-data", :region=>['eu-central-1'], :ssh => false    },
-   { :id => "5", :desc=>"Add 'Outputs' -section with reference to EC2 instance", :region=>['eu-central-1'], :ssh => false    },
-   { :id => "6", :desc=>"Add 'Inputs' and 'Mappings' -sections to parametirize", :region=> all_regions, :ssh => true  },
-   { :id => "7", :desc=>"Added support for input parameters, EC2 tags, Instance security group", :region=>all_regions, :ssh => true  },
-   { :id => "8", :desc=>"Added support for installing Chef", :region=>all_regions, :ssh => true  },
+   { :id => "2", :desc=>"Added 'description' property, Use resources.mustache -partial", :region=>['eu-central-1'], :ssh => false    },
+   { :id => "3", :desc=>"EC2 instance configuration using YAML-data", :region=>['eu-central-1'], :ssh => false    },
+   { :id => "4", :desc=>"Add 'Outputs' -section with reference to EC2 instance", :region=>['eu-central-1'], :ssh => false    },
+   { :id => "5", :desc=>"Add 'Inputs' and 'Mappings' -sections to parametirize", :region=> all_regions, :ssh => false  },
+   { :id => "6", :desc=>"Create security group, and EC2 instances", :region=>all_regions, :ssh => true  },
+   { :id => "7", :desc=>"Add support for installing Chef", :region=>all_regions, :ssh => true  },
 
 
   ].each do  |c|

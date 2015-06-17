@@ -37,9 +37,10 @@ CONTENT section
 
 # <a id="top">aws-must demo 4 template</a>
 
-Creates a EC2 instances using YAML configuration defining `ImageId`
-(e.g. ami-00dae61d) and `InstanceType` (e.g. t2.micro).
-
+Creates EC2 instances using YAML configuration defining `ImageId`
+(e.g. ami-00dae61d) and `InstanceType` (e.g. t2.micro).  Output
+section contains references to InstanceId and PublicId of the newly
+created EC2 instance.
 
 Supports only region `eu-central-1`. No ssh connection allowed by
 default.
@@ -47,6 +48,7 @@ default.
 **Parameters**:
 
 * `InstanceType`: EC2 resource instance type, (default: t2.micro)
+
 
 
 ## Document Content
@@ -68,25 +70,26 @@ each template, it
 * lists template actions, i.e.  output from template, or template
   inclusion
 
+
 ## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
 
-
-Root template 
-
+Starting point of template rendering.
 
 **Attributes**: context= `.`
 
 * `description`: description for the CF template
-
 
 **Actions**:
 
 * **Description**: `description`
 * **include** <a href="#resources.mustache">resources.mustache</a>
 * **for** `resource` **in** `resource` **include** <a href="#resource.mustache">resource.mustache</a>
+* **for** `output` **in** `outputs` **include** <a href="#output.mustache">output.mustache</a>
+
 
 > resources
 > resource
+> output
 
 ++close++
 
@@ -97,12 +100,16 @@ Root template
 
   "Description" : "{{description}}",
 
-
-
   "Resources" : {
 
     {{> resources }}
     {{# resources }}{{> resource }}{{/ resources }}
+
+  },
+
+  "Outputs" : {
+
+    {{# outputs }}{{> output }}{{/ outputs }}
 
   }
 

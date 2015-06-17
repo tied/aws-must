@@ -1,1 +1,13 @@
-{{! empty }}
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description" : "A simple Amazon EC2 instance. Initial copy",
+  "Resources" : {
+    "MyEC2Instance" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId" : "ami-00dae61d",
+        "InstanceType" : "t2.micro"
+      }
+    }
+  }
+}

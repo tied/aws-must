@@ -13,6 +13,7 @@ Create an EC2 instance
 * `Name`: name of the EC2 instance to create
 * `InstanceType` : The instance type, such as t2.micro. 
 * `tags` : array of tag sub-documents for EC2 instance
+* `InstallChef`: add UserData to install Chef
 
 
 **Actions**:
@@ -23,9 +24,10 @@ Create an EC2 instance
 * **SecurityGroups.Ref**: `SecurityGroup` if `SecurityGroup`
 * **ImageId**: **AWSRegionArch2AMI**( 'AWS::Region', **AWSInstanceType2Arch**(`InstanceType`))
 * **KeyName**: `KeyName` if `KeyName`
+* **include** <a href="#resourceInstanceChef.mustache">resourceInstanceChef.mustache</a> if `InstallChef`
 
 > tag
-
+> resourceInstanceChef
 
 ++close++
 
@@ -41,5 +43,6 @@ Create an EC2 instance
         , "Tags" : [ {{#tags}}{{>tag}}{{/tags}} ]
         {{#SecurityGroup}}, "SecurityGroups" : [ { "Ref" : "{{SecurityGroup}}" } ]{{/SecurityGroup}}
         {{#KeyName}}, "KeyName" : { "Ref" : "{{KeyName}}" }{{/KeyName}}
-      } {{! Propertites }}
+        {{#InstallChef }}, "UserData": { {{> resourceInstanceChef }} }{{/ InstallChef }}
+      }
     }{{_comma}}

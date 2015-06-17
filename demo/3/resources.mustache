@@ -1,21 +1,19 @@
 {{! 
 
-    resources.mustache - fixed resources
-
 ++start++
 
-## <a id="resources.mustache"></a>resources.mustache <a class='navigator' href='#top'">[top]</a>
+## resources.mustache
 
-Create an EC2 with following fixed parameters
-
-* `ImageId` : "ami-00dae61d",
-* `InstanceType` : "t2.micro"
+Nothing created here
 
 ++close++
 
 
 }}
+{{! 
 
+    Fixed resource 'MyEC2Instance' not used anymore.
+    Use YAML resource configuration instead! 
 
     "MyEC2Instance" : {
       "Type" : "AWS::EC2::Instance",
@@ -24,3 +22,6 @@ Create an EC2 with following fixed parameters
         "InstanceType" : "t2.micro"
       }
     }
+
+}}
+    {{# resources }}{{> resource }}{{/ resources }}

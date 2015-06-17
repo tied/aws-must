@@ -1,11 +1,13 @@
 {{!
 
+     root.mustache: root level template, 
 
 ==================================================================
 STYLE section
 ==================================================================
 
 ++start++
+
 <style>
 h1 {
     color:blue; 
@@ -15,11 +17,17 @@ h2 {
       color:blue;
       font-size: 1.5em;
    }
+h3 {
+      color:blue;
+      font-size: 1.5em;
+   }
 body {
     background-color: #b0c4de;
 } 
 </style>
+
 ++close++
+
 
 ==================================================================
 CONTENT section
@@ -29,10 +37,8 @@ CONTENT section
 
 # <a id="top">aws-must demo 3 template</a>
 
-Create an EC2 with following fixed parnameters
-
-* `ImageId` : "ami-00dae61d",
-* `InstanceType` : "t2.micro"
+Creates a EC2 instances using YAML configuration defining `ImageId`
+(e.g. ami-00dae61d) and `InstanceType` (e.g. t2.micro).
 
 
 Supports only region `eu-central-1`. No ssh connection allowed by
@@ -40,13 +46,13 @@ default.
 
 **Parameters**:
 
-* no parameters
+* `InstanceType`: EC2 resource instance type, (default: t2.micro)
 
 
 ## Document Content
 
 This document is generated automically from `aws-must` -demo
-templates.
+templates. 
 
 
 Output contains markdown syntax between
@@ -62,40 +68,34 @@ each template, it
 * lists template actions, i.e.  output from template, or template
   inclusion
 
-
-
 ## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
 
-Create an EC2 instance
+
+Root template 
+
 
 **Attributes**: context= `.`
 
 * `description`: description for the CF template
 
+
 **Actions**:
 
 * **Description**: `description`
 * **include** <a href="#resources.mustache">resources.mustache</a>
+* **for** `resource` **in** `resource` **include** <a href="#resource.mustache">resource.mustache</a>
 
 > resources
+> resource
 
 ++close++
-
-==================================================================
 
 }}
 
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
-
   "Description" : "{{description}}",
-
-
-
   "Resources" : {
-
     {{> resources }}
-
   }
-
 }

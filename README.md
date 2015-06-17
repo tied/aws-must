@@ -55,9 +55,8 @@ above.  With the tool users may
 
 4. add comments in YAML and Mustache templates. The tool supports a
    simple tag syntax (**&plus;&plus;start&plus;&plus;**
-   **&plus;&plus;close&plus;&plus;** -tags) to add documentation to
-   Mustache templates, and command to extract the documentation from
-   template files.
+   **&plus;&plus;close&plus;&plus;** -tags) allowing documentation to
+   be extracted directly from template files.
 
 5. use Mustache partials to get rid of repeating similar sections in
    JSON configuration.
@@ -67,8 +66,9 @@ above.  With the tool users may
 
 ## Installation
 
-Add following line to `Gemfile`
+Add following lines to `Gemfile`
 
+    source 'https://rubygems.org'
 	gem 'aws-must'
 
 
@@ -76,6 +76,8 @@ and run
 
 	bundle install
 	
+
+**Notice**: requires Ruby version ~> 2.0.
 
 ## Usage
 
