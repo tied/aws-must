@@ -52,7 +52,8 @@ LONGDESC
   'with_adjust' (yes/no)
 
   By default 'adjusts' data, i.e. adds property "_comma" with the
-  value "," to each sub document expect the last one in an array.
+  value "," to each sub document, expect the last sub-document is
+  adjusted with empty string "".
 
   The "_comma" -property helps in generating valid json arrays in
   mustache templates. For example, YAML construct

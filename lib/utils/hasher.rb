@@ -62,10 +62,12 @@ module Utils
         obj2 = dfs(obj) do |o| 
           o.each do |k,v| 
             if v.is_a? Array
-              # add :comma -property expect to the last element
+              # add _comma = ',', expect to the 
               v.slice(0,v.length-1).each do |elem|
                 elem["_comma"] = "," if elem.is_a? Hash
               end
+              # add _comma = '' to the last element
+              v.last["_comma"] = "" if  v.last.is_a? Hash
             end
           end
         end # block

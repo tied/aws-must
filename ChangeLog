@@ -1,3 +1,7 @@
+2015-07-30  jj  <jj@horsti>
+
+	* spec/utils/hasher_spec.rb (Tst): expect last ement contain empty comma element
+
 2015-06-11  jj  <jj@horsti>
 
 	* lib/tasks/demo.rake: added demo-case 8

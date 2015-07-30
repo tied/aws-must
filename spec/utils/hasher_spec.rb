@@ -69,7 +69,7 @@ describe "Utils::Hasher" do
       }
       output =  Marshal.load(Marshal.dump(input))
       output["apu2"][0]["_comma"]=','
-      # output["apu2"][1]["_comma"]=','
+      output["apu2"][1]["_comma"]=''
       expect( @sut.addComma(input) ).to eql( output )
     end 
 
@@ -87,7 +87,9 @@ describe "Utils::Hasher" do
       }
       output =  Marshal.load(Marshal.dump(input))
       output["apu2"][0]["_comma"]=','
+      output["apu2"][1]["_comma"]=''
       output["apu3"][0]["_comma"]=','
+      output["apu3"][1]["_comma"]=''
       expect( @sut.addComma(input) ).to eql( output )
     end 
 
@@ -99,7 +101,7 @@ describe "Utils::Hasher" do
                   ]
       }
       output =  Marshal.load(Marshal.dump(input))
-      # output["apu2"][0]["_comma"]=','
+      output["apu2"][0]["_comma"]=''
       # output["apu2"][1]["_comma"]=','
       expect( @sut.addComma(input) ).to eql( output )
     end 
@@ -116,7 +118,7 @@ describe "Utils::Hasher" do
       }
       output =  Marshal.load(Marshal.dump(input))
       output["level1"]["apu2"][0]["_comma"]=','
-      # output["level1"]["apu2"][1]["_comma"]=','
+      output["level1"]["apu2"][1]["_comma"]=''
       expect( @sut.addComma(input) ).to eql( output )
     end 
 

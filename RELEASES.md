@@ -1,5 +1,11 @@
 
 ## 0.0.7-SNAPSHOT/20150617-16:50:31
+
+* Adjust rule changed: "By default 'adjusts' data, i.e. adds property
+  "`_comma`" with the value "," to each sub document, expect the last
+  sub-document is adjusted with empty string "".
+
+
 ## 0.0.6/20150617-16:50:24
 
 * sync with [blog post](https://jarjuk.wordpress.com/2015/06/15/love-aws-part3-2/)
