@@ -1,6 +1,8 @@
 
 ## 0.0.7-SNAPSHOT/20150617-16:50:31
 
+* output instructions to use `--template_path` -option when root template file not found
+
 * Adjust rule changed: "By default 'adjusts' data, i.e. adds property
   "`_comma`" with the value "," to each sub document, expect the last
   sub-document is adjusted with empty string "".

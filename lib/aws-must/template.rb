@@ -70,8 +70,31 @@ module AwsMust
       @logger.debug( "#{__FILE__}.#{__method__} name=#{name}" )
       return @templates[name] if @templates && @templates[name]
 
+      if !  File.exists?( @@template_path ) then
+        raise <<-eos
+
+
+          No such directory '#{@@template_path}'.
+ 
+          Use opition -t to point to an existing directory.
+        
+        eos
+      end
+
       template_path = "#{@@template_path}/#{name}.#{@@template_extension}"
       @logger.info( "#{__FILE__}.#{__method__} read template_path=#{template_path}" )
+
+      if !  File.exists?( template_path ) then
+        raise <<-eos
+
+          No such file  '#{template_path}'.
+ 
+          Use opition -t to point to a directory, which contains file '#{name}.#{@@template_extension}'
+
+        
+        eos
+      end
+
 
       File.read( template_path )
     end
