@@ -1,5 +1,5 @@
 
-## 0.0.7-SNAPSHOT/20150617-16:50:31
+## 0.0.7/20150810-14:17:33
 
 * add support for folding template data using `+++fold-on+++` and
   `+++fold-off+++` directives, see more in `aws-must.rb help doc`
