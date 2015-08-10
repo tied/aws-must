@@ -99,11 +99,14 @@ template `./mustache/root.mustache` issue the command
 
 	aws-must.rb gen yaml_file
 
-To extract documentation between **&plus;&plus;start&plus;&plus;** and
-**&plus;&plus;close&plus;&plus;** -tags starting with template
-`./mustache/root.mustache`, issue the command
+To extract documentation from template `./mustache/root.mustache`,
+issue the command
 
 	aws-must.rb doc 
+	
+To see more information on how documentation is generated, issue the the command
+
+	aws-must.rb help doc 
 
 To dump YAML `yaml_file` in JSON format
 

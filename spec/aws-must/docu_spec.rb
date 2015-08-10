@@ -14,8 +14,12 @@ describe "AwsMust::Docu" do
 
   before :each do
 
+    @options      = {
+      :fold_on => "fold open text",
+      :fold_off => "fold close text",
+    }
     @template    =  double( "template" )
-    @sut         = ::AwsMust::Docu.new( @template )
+    @sut         = ::AwsMust::Docu.new( @template, @options )
 
   end
 
@@ -46,9 +50,28 @@ describe "AwsMust::Docu" do
       expect( @sut ).to respond_to( :directive_include )
     end 
 
+    # it "#defines method 'directive_fold_on'" do
+    #   expect( @sut ).to respond_to( :directive_fold_on )
+    # end 
+
+    # it "#defines method 'directive_fold_off'" do
+    #   expect( @sut ).to respond_to( :directive_fold_off )
+    # end 
 
 
   end # interface
+
+  describe "options and accesses'" do
+
+    it "#accessor for option 'fold_on'" do
+      expect( @sut.fold_on ).to eql( @options[:fold_on]) 
+    end
+
+    it "#accessor for option 'fold_off'" do
+      expect( @sut.fold_off ).to eql( @options[:fold_off]) 
+    end
+
+  end
 
   
   # ------------------------------------------------------------------
@@ -58,7 +81,6 @@ describe "AwsMust::Docu" do
 
 
     describe "only on root template" do
-
 
       it "#nil string --> no output" do
         root =  nil
@@ -73,156 +95,160 @@ describe "AwsMust::Docu" do
 
       end
 
-      it "#no ':open' directive --> no output" do
+      describe "directives open/close" do
 
-        line="aaa"
-        root =  <<MUSTACHE
+        it "#no ':open' directive --> no output" do
+
+          line="aaa"
+          root =  <<MUSTACHE
 #{line}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).not_to receive( :output )
-        expect( @sut ).to receive( :directive_open ).with( line )
-        expect( @sut ).not_to receive( :directive_close )
-        expect( @sut ).not_to receive( :directive_include )
-        
-        @sut.document( "root" )
+          expect( @sut ).not_to receive( :output )
+          expect( @sut ).to receive( :directive_open ).with( line )
+          expect( @sut ).not_to receive( :directive_close )
+          expect( @sut ).not_to receive( :directive_include )
+          
+          @sut.document( "root" )
 
 
-      end
+        end
 
-      it "#no ':open' directive, two lines --> no output'" do
+        it "#no ':open' directive, two lines --> no output'" do
 
-        line1="Line1"
-        line2="Line2 in template"
-        root =  <<MUSTACHE
+          line1="Line1"
+          line2="Line2 in template"
+          root =  <<MUSTACHE
 #{line1}
 #{line2}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).not_to receive( :output )
-        expect( @sut ).to receive( :directive_open ).twice
-        expect( @sut ).not_to receive( :directive_close )
-        expect( @sut ).not_to receive( :directive_include )
-        
-        @sut.document( "root" )
+          expect( @sut ).not_to receive( :output )
+          expect( @sut ).to receive( :directive_open ).twice
+          expect( @sut ).not_to receive( :directive_close )
+          expect( @sut ).not_to receive( :directive_include )
+          expect( @sut ).not_to receive( :directive_fold_on )
+          expect( @sut ).not_to receive( :directive_fold_off )
+          
+          @sut.document( "root" )
 
 
-      end
+        end
 
-      it '#case l\nO\nL\n --> output L' do
+        it '#case l\nO\nL\n --> output L' do
 
-        line1="line1"
-        line2="Line2"
-        root =  <<MUSTACHE
+          line1="line1"
+          line2="Line2"
+          root =  <<MUSTACHE
 #{line1}
 #{@sut.get_tag(:open)}
 #{line2}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line2 )
-        expect( @sut ).to receive( :directive_close ).with( line2 ).and_call_original
-        
-        @sut.document( "root" )
+          expect( @sut ).to receive( :output ).with( line2 )
+          expect( @sut ).to receive( :directive_close ).with( line2 ).and_call_original
+          
+          @sut.document( "root" )
 
-      end
+        end
 
-      it '#case O\n\nL\n --> output L' do
+        it '#case O\n\nL\n --> output L' do
 
-        line1="line1"
-        line2="Line2"
-        root =  <<MUSTACHE
+          line1="line1"
+          line2="Line2"
+          root =  <<MUSTACHE
 
 #{@sut.get_tag(:open)}
 
 #{line1}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( "" ).ordered
-        expect( @sut ).to receive( :output ).with( line1 ).ordered
-        
-        @sut.document( "root" )
+          expect( @sut ).to receive( :output ).with( "" ).ordered
+          expect( @sut ).to receive( :output ).with( line1 ).ordered
+          
+          @sut.document( "root" )
 
-      end
+        end
 
 
 
-      it '#case lOL\n  --> output L' do
+        it '#case lOL\n  --> output L' do
 
-        line1="line1"
-        line2="line2"
-        root =  <<MUSTACHE
+          line1="line1"
+          line2="line2"
+          root =  <<MUSTACHE
 #{line1}#{@sut.get_tag(:open)}#{line2}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        # expect( @sut ).to receive( :output ).with( line2 )
-        expect( @sut ).not_to receive( :output )
-        
-        @sut.document( "root" )
+          # expect( @sut ).to receive( :output ).with( line2 )
+          expect( @sut ).not_to receive( :output )
+          
+          @sut.document( "root" )
 
-      end
+        end
 
 
 
-      it '#case l\nO\nL\nL\n' do
+        it '#case l\nO\nL\nL\n' do
 
-        line1="aaa"
-        line2="bbb"
-        line3="ccc"
-        root =  <<MUSTACHE
+          line1="aaa"
+          line2="bbb"
+          line3="ccc"
+          root =  <<MUSTACHE
 #{line1}
 #{@sut.get_tag(:open)}
 #{line2}
 #{line3}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).twice
-        expect( @sut ).to receive( :directive_close ).twice.and_call_original
-        
-        @sut.document( "root" )
+          expect( @sut ).to receive( :output ).twice
+          expect( @sut ).to receive( :directive_close ).twice.and_call_original
+          
+          @sut.document( "root" )
 
-      end
+        end
 
-      it '#case lOL\n' do
+        it '#case lOL\n' do
 
-        line1="aaa"
-        line2="bbb"
-        line3="ccc"
-        root =  <<MUSTACHE
+          line1="aaa"
+          line2="bbb"
+          line3="ccc"
+          root =  <<MUSTACHE
 #{line1}#{@sut.get_tag(:open)}#{line2}
 #{line3}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line3 )
-        expect( @sut ).to receive( :directive_close ).once.and_call_original
-        
-        @sut.document( "root" )
+          expect( @sut ).to receive( :output ).with( line3 )
+          expect( @sut ).to receive( :directive_close ).once.and_call_original
+          
+          @sut.document( "root" )
 
-      end
+        end
 
 
 
-      it '#case l\nO\nL\nC\nl\n' do
+        it '#case l\nO\nL\nC\nl\n' do
 
-        root_name="myroot_template_name"
+          root_name="myroot_template_name"
 
-        line1="line1"
-        line2="Line2 for case lOLCl"
-        line3="line3"
-        root =  <<MUSTACHE
+          line1="line1"
+          line2="Line2 for case lOLCl"
+          line3="line3"
+          root =  <<MUSTACHE
 #{line1}
 #{@sut.get_tag(:open)}
 #{line2}
@@ -230,110 +256,110 @@ MUSTACHE
 #{line3}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line2 )
-        expect( @sut ).to receive( :directive_close ).twice.and_call_original
-        
-        @sut.document( root_name )
+          expect( @sut ).to receive( :output ).with( line2 )
+          expect( @sut ).to receive( :directive_close ).twice.and_call_original
+          
+          @sut.document( root_name )
 
-      end
+        end
 
-      it '#case lO\nLC\nll  -> ouput L' do
+        it '#case lO\nLC\nll  -> ouput L' do
 
-        root_name="myroot_template_name"
+          root_name="myroot_template_name"
 
-        line1="line1"
-        line2="line2"
-        line3="line3"
-        root =  <<MUSTACHE
+          line1="line1"
+          line2="line2"
+          line3="line3"
+          root =  <<MUSTACHE
 #{line1}#{@sut.get_tag(:open)}
 #{line2}#{@sut.get_tag(:close)}
 #{line3}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        #expect( @sut ).to receive( :output ).with( line2 )
-        expect( @sut ).not_to receive( :output )
+          #expect( @sut ).to receive( :output ).with( line2 )
+          expect( @sut ).not_to receive( :output )
 
-        
-        @sut.document( root_name )
+          
+          @sut.document( root_name )
 
-      end
+        end
 
-      it '#case lOLC\nl  -> ouput L' do
+        it '#case lOLC\nl  -> ouput L' do
 
-        root_name="myroot_template_name"
+          root_name="myroot_template_name"
 
-        line1="line1"
-        line2="line2"
-        line3="line3"
-        root =  <<MUSTACHE
+          line1="line1"
+          line2="line2"
+          line3="line3"
+          root =  <<MUSTACHE
 #{line1}#{@sut.get_tag(:open)}#{line2}#{@sut.get_tag(:close)}
 #{line3}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line3 )
-        
-        @sut.document( root_name )
+          expect( @sut ).to receive( :output ).with( line3 )
+          
+          @sut.document( root_name )
 
-      end
+        end
 
-      it '#case lOLClOL\n  -> ouput L' do
+        it '#case lOLClOL\n  -> ouput L' do
 
-        root_name="myroot_template_name"
+          root_name="myroot_template_name"
 
-        line1="line1"
-        line2="line2"
-        line3="line3"
-        line4="line4"
-        root =  <<MUSTACHE
+          line1="line1"
+          line2="line2"
+          line3="line3"
+          line4="line4"
+          root =  <<MUSTACHE
 #{line1}#{@sut.get_tag(:open)}#{line2}#{@sut.get_tag(:close)}#{line3}#{@sut.get_tag(:open)}#{line4}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        # expect( @sut ).to receive( :output ).with( line2 )
-        # expect( @sut ).to receive( :output ).with( line4 )
-        expect( @sut ).not_to receive( :output )
-        
-        @sut.document( root_name )
+          # expect( @sut ).to receive( :output ).with( line2 )
+          # expect( @sut ).to receive( :output ).with( line4 )
+          expect( @sut ).not_to receive( :output )
+          
+          @sut.document( root_name )
 
-      end
+        end
 
 
 
-      it '#case lOLCl\n  -> ouput L' do
+        it '#case lOLCl\n  -> ouput L' do
 
-        root_name="myroot_template_name"
+          root_name="myroot_template_name"
 
-        line1="line1"
-        line2="line2"
-        line3="line3"
-        root =  <<MUSTACHE
+          line1="line1"
+          line2="line2"
+          line3="line3"
+          root =  <<MUSTACHE
 #{line1}#{@sut.get_tag(:open)}#{line2}#{@sut.get_tag(:close)}#{line3}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        expect( @sut ).not_to receive( :output )
-        
-        @sut.document( root_name )
+          expect( @sut ).not_to receive( :output )
+          
+          @sut.document( root_name )
 
-      end
+        end
 
 
-      it '#case c\nl\nO\nL\nC\nl\n' do
+        it '#case c\nl\nO\nL\nC\nl\n' do
 
-        root_name="myroot_template_name"
+          root_name="myroot_template_name"
 
-        line1="aaa"
-        line2="bbb"
-        line3="ccc"
-        root =  <<MUSTACHE
+          line1="aaa"
+          line2="bbb"
+          line3="ccc"
+          root =  <<MUSTACHE
 #{@sut.get_tag(:close)}
 #{line1}
 #{@sut.get_tag(:open)}
@@ -342,21 +368,21 @@ MUSTACHE
 #{line3}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).with( root_name ).and_return( root )
+          expect( @template ).to receive( :get_template ).with( root_name ).and_return( root )
 
-        expect( @sut ).to receive( :output ).with( line2 )
-        
-        @sut.document( root_name )
+          expect( @sut ).to receive( :output ).with( line2 )
+          
+          @sut.document( root_name )
 
-      end
+        end
 
 
-      it '#case c\nl\nO\no\nL\nC\nl\n' do
+        it '#case c\nl\nO\no\nL\nC\nl\n' do
 
-        line1="aaa"
-        line2="bbb"
-        line3="ccc"
-        root =  <<MUSTACHE
+          line1="aaa"
+          line2="bbb"
+          line3="ccc"
+          root =  <<MUSTACHE
 #{@sut.get_tag(:close)}
 #{line1}
 #{@sut.get_tag(:open)}
@@ -366,18 +392,115 @@ MUSTACHE
 #{line3}
 MUSTACHE
 
-        expect( @template ).to receive( :get_template ).and_return( root )
+          expect( @template ).to receive( :get_template ).and_return( root )
 
-        # output in correct order
-        expect( @sut ).to receive( :output ).with( @sut.get_tag(:open) ).ordered
-        expect( @sut ).to receive( :output ).with( line2 ).ordered
-        
-        @sut.document( "root" )
+          # output in correct order
+          expect( @sut ).to receive( :output ).with( @sut.get_tag(:open) ).ordered
+          expect( @sut ).to receive( :output ).with( line2 ).ordered
+          
+          @sut.document( "root" )
+
+        end
+
+      end # describe "directives open/close" do
+
+      describe "directives fold open/close" do
+
+
+        it '#case l\nF\nL\nf --> output FLf' do
+
+          line1="line1"
+          line2="Line2"
+          root =  <<MUSTACHE
+#{line1}
+#{@sut.get_tag(:fold_on)}
+#{line2}
+#{@sut.get_tag(:fold_off)}
+MUSTACHE
+
+          expect( @template ).to receive( :get_template ).and_return( root )
+
+          expect( @sut ).to receive( :output ).with(  @options[:fold_on] ).ordered
+          expect( @sut ).to receive( :output ).with( line2 ).ordered
+          expect( @sut ).to receive( :output ).with(  @options[:fold_off] ).ordered
+
+          # expect( @sut ).to receive( :directive_close ).with( line2 ).and_call_original
+          
+          @sut.document( "root" )
+
+        end
+
+        it '#case l\nF\nLL\nf --> output FLLf' do
+
+          line1="line1"
+          line2="Line2"
+          line3="Line3"
+          root =  <<MUSTACHE
+#{line1}
+#{@sut.get_tag(:fold_on)}
+#{line2}
+#{line3}
+#{@sut.get_tag(:fold_off)}
+MUSTACHE
+
+          expect( @template ).to receive( :get_template ).and_return( root )
+
+          expect( @sut ).to receive( :output ).with(  @options[:fold_on] ).ordered
+          expect( @sut ).to receive( :output ).with( line2 ).ordered
+          expect( @sut ).to receive( :output ).with( line3 ).ordered
+          expect( @sut ).to receive( :output ).with(  @options[:fold_off] ).ordered
+
+          # expect( @sut ).to receive( :directive_close ).with( line2 ).and_call_original
+          
+          @sut.document( "root" )
+
+        end
+
+
+      end
+
+      describe "mixed open/close fold/directives" do
+
+        it '#normal-case l1\nO\nL2\n\C\C\l3F\nL4L\nf\nL5 --> output L2FL4f' do
+
+          
+          line1="line1"
+          line2="Line2"
+          line3="Line3"
+          line4="Line4"
+          line5="Line5"
+          root =  <<MUSTACHE
+#{line1}
+#{@sut.get_tag(:open)}
+#{line2}
+#{@sut.get_tag(:close)}
+#{line3}
+#{@sut.get_tag(:fold_on)}
+#{line4}
+#{@sut.get_tag(:fold_off)}
+#{line5}
+MUSTACHE
+
+          expect( @template ).to receive( :get_template ).and_return( root )
+
+          expect( @sut ).to receive( :output ).with( line2 ).ordered
+          expect( @sut ).to receive( :output ).with(  @options[:fold_on] ).ordered
+          expect( @sut ).to receive( :output ).with( line4 ).ordered
+          expect( @sut ).to receive( :output ).with(  @options[:fold_off] ).ordered
+
+          # expect( @sut ).not_to receive( :output ).with(  line1 )
+          # expect( @sut ).not_to receive( :output ).with(  line3 )
+          # expect( @sut ).not_to receive( :output ).with(  line5 )
+
+          # expect( @sut ).to receive( :directive_close ).with( line2 ).and_call_original
+          
+          @sut.document( "root" )
+
+        end
 
       end
 
     end # describe "only on root template" do
-
 
     
   end # method 'document'

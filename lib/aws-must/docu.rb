@@ -9,9 +9,12 @@ module AwsMust
     # ------------------------------------------------------------------
     # constants
 
-    DEFAULT_OPEN_TAG      ="++start++"
-    DEFAULT_CLOSE_TAG     ="++close++"
-    DEFAULT_INCLUDE_TAG   =">"
+    DEFAULT_OPEN_TAG           ="+++start+++"
+    DEFAULT_CLOSE_TAG          ="+++close+++"
+    DEFAULT_FOLD_ON_TAG        ="+++fold-on+++"
+    DEFAULT_FOLD_OFF_TAG       ="+++fold-off+++"
+    DEFAULT_INCLUDE_TAG        =">"
+
 
 
     # ------------------------------------------------------------------
@@ -21,6 +24,10 @@ module AwsMust
 
 
     # instance 
+
+    # command line option define lines to output for directive
+    attr_accessor   :fold_on
+    attr_accessor   :fold_off
 
     # ------------------------------------------------------------------
     # Constructor
@@ -33,11 +40,19 @@ module AwsMust
 
       @template = template
 
+      # command line option define lines to output for directive
+      @fold_on = options[:fold_on] if options[:fold_on]
+      @fold_off = options[:fold_off] if options[:fold_off]
+
+
       @directives = {
         :open => DEFAULT_OPEN_TAG,
         :close => DEFAULT_CLOSE_TAG,
+        :fold_on => DEFAULT_FOLD_ON_TAG,
+        :fold_off => DEFAULT_FOLD_OFF_TAG,
         :include => DEFAULT_INCLUDE_TAG,
       }
+
 
     end
 
@@ -60,7 +75,7 @@ module AwsMust
 
         if !state_opened then
 
-          # waiting for +++open+++
+          # waiting for +++open+++ or +++fold_on+++
 
           open_found, line = directive_open( line )
           if open_found then
@@ -74,7 +89,7 @@ module AwsMust
 
         else 
 
-          # seen +++open+++, waiting for +++close+++
+          # seen +++open+++ or +++fold_on+++, waiting for +++close+++, +++fold_off+++
 
           close_found, line_pre, line = directive_close( line )
           # puts "close_found=#{close_found}, #{close_found.class}, line=#{line}"
@@ -109,26 +124,34 @@ module AwsMust
       # return line && line.include?( get_tag(:open) )
       if line && line.include?( get_tag(:open) ) then
         # find index pointing _after_ :open tag
-        index = line.index( get_tag(:open) ) + get_tag(:open).length
+        # index = line.index( get_tag(:open) ) + get_tag(:open).length
         # # return text after directtive
         # return  true, line[ index..-1]
 
         # do not output anything for the line
         return  true, nil
 
+      elsif line && line.include?( get_tag(:fold_on) ) then
+        # output fold_on text instread
+        return  true, self.fold_on
       else
         return false, nil
       end
     end
+
     
     # return bool, line_pre, line
     def directive_close( line )
       #return line && line.include?( get_tag( :close ) )
       if line && line.include?( get_tag( :close ) ) then
-        index = line.index( get_tag(:close) )
+        # index = line.index( get_tag(:close) )
         # return true, index == 0 ? nil : line[0..index-1],  line[ index+ get_tag(:close).length..-1]
         # do not output anythin on line for directive
         return true, nil, nil
+        
+      elsif line && line.include?( get_tag(:fold_off) ) then
+        # replace fold-off direcive line with fold_off text
+        return true, self.fold_off, nil
       else
         return false, nil, line
       end
@@ -153,6 +176,7 @@ module AwsMust
 
     # ------------------------------------------------------------------
     # get tag value
+
     def get_tag( tag )
       raise "Unknown tag" unless @directives[tag]
       return @directives[tag]

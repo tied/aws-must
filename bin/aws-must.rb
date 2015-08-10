@@ -8,8 +8,12 @@ class App < Thor
 
   include Utils::MyLogger     # mix logger
   PROGNAME = "main"           # logger progname
-  DEAFAULT_TEMPLATE="root"    # name of template in :template_path -directory
 
+  # default values
+
+  DEAFAULT_TEMPLATE="root"    # name of template in :template_path -directory
+  DEFAUL_FOLD_ON="foldon"     # default output for +++fold-on+++ tag
+  DEFAUL_FOLD_OFF="foldoff"   # default output for +++fold-off+++ tag
 
   # ------------------------------------------------------------------
 
@@ -26,11 +30,35 @@ class App < Thor
   :default => "mustache", 
   :desc => "Directory holding mustache templates"
 
+  option :fold_on, :aliases => "-n", :type => :string, 
+  :default => DEFAUL_FOLD_ON, 
+  :desc => "Output for +++fold-on+++ tag"
+
+  option :fold_off, :aliases => "-f", :type => :string, 
+  :default => DEFAUL_FOLD_OFF, 
+  :desc => "Output for +++fold-off+++ tag"
+
   long_desc <<-LONGDESC
 
-  Extract documation from <template_name> in ':template_path' -direcotory.
+  Extract documation from <template_name> in ':template_path' -directory.
 
   <template_name> defaults to '#{DEAFAULT_TEMPLATE}'
+
+
+  Documentation is extracted from lines surrounded by #{AwsMust::Docu::DEFAULT_OPEN_TAG} and #{AwsMust::Docu::DEFAULT_CLOSE_TAG} tags,
+  or by  #{AwsMust::Docu::DEFAULT_FOLD_ON_TAG} and  #{AwsMust::Docu::DEFAULT_FOLD_OFF_TAG} tags. 
+
+  Following rules apply:
+
+  - #{AwsMust::Docu::DEFAULT_OPEN_TAG},  #{AwsMust::Docu::DEFAULT_CLOSE_TAG} -tags: nothing is outputted for these lines
+
+  - #{AwsMust::Docu::DEFAULT_FOLD_ON_TAG} -tag: output text for --fold_on option (defaults '#{DEFAUL_FOLD_ON}')
+
+  - #{AwsMust::Docu::DEFAULT_FOLD_OFF_TAG} -tag: output text for --fold_off option (defaults '#{DEFAUL_FOLD_OFF}')
+
+
+
+
 
 LONGDESC
 
