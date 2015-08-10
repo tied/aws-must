@@ -1,4 +1,4 @@
-# aws-must - Minimum Viable Solution to Manage CloudFormation Templates - $Release:0.0.7$
+# aws-must - Minimum Viable Solution to Manage CloudFormation Templates - $Release:0.0.8-SNAPSHOT$
 
 `aws-must` is a tool, which allows separating infrastructure
 configuration and Amazon related syntax in CloudFormation JSON
