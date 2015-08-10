@@ -1,7 +1,7 @@
 {{!
 
 
-++start++
++++start+++
 
 ## <a id="resourceInstance.mustache"></a>resourceInstance.mustache <a class='navigator' href='#top'">[top]</a>
 
@@ -12,15 +12,12 @@ Create an EC2 instance
 * `Name`: name of the EC2 instance to create
 * `ImageId`: AIM id to create
 
-**Actions**:
 
-* **Name**:  `Name`
-* **Type**: 'AWS::EC2::Instance'
-* **ImageId**: `ImageId`
-
-++close++
++++close+++
 
 }}
+
+{{! +++fold-on+++ }}
 
 
     "{{Name}}" : {
@@ -30,3 +27,5 @@ Create an EC2 instance
         "InstanceType" : "{{InstanceType}}"
       }
     }{{_comma}}
+
+{{! +++fold-off+++ }}

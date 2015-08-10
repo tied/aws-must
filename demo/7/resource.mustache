@@ -2,9 +2,9 @@
 
     resource.mustache
 
-++start++
++++start+++
 
-## <a id="resource.mustache"></a>resource.mustache <a class='navigator' href='#top'">[top]</a>
+## <a id="resource.mustache"></a>resource.mustache <a class='navigator' href='#top'>[top]</a>
 
 
 Dispatches resource sub-type templates based resource Type propertys
@@ -15,24 +15,15 @@ Dispatches resource sub-type templates based resource Type propertys
 * `SecurityGroup`: sub-document defining an <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html">AWS::EC2::SecurityGroup</a>
 
 
-**Actions**:
-
-* **include** <a href="#resourceInstance.mustache">resourceInstance.mustache</a> **if** `Instance` 
-* **include** <a href="#resourceSecurityGroup.mustache">resourceSecurityGroup.mustache</a> **if** `SecurityGroup` 
-
-
-**Included resources**
-
-* `resourceInstance`
-
-> resourceInstance
-> resourceSecurityGroup.mustache
-
-++close++
-
-
++++close+++
 
 }}
 
+
+{{! +++fold-on+++ }}
+
 {{# Instance }}{{> resourceInstance}}{{/ Instance }}
 {{# InstanceSecurityGroup }}{{> resourceSecurityGroup}}{{/ InstanceSecurityGroup }}
+
+
+{{! +++fold-off+++ }}

@@ -1,8 +1,8 @@
 {{!
 
-++start++
++++start+++
 
-## <a id="mappings.mustache"></a>mappings.mustache <a class='navigator' href='#top'">[top]</a>
+## <a id="mappings.mustache"></a>mappings.mustache <a class='navigator' href='#top'>[top]</a>
 
 
 Create fixed lookup tables `AWSInstanceType2Arch` and
@@ -37,7 +37,7 @@ us-west-2         trusty    14.04 LTS    amd64    hvm:ebs-ssd    20150528    ami
     architectures only for **64bits**
 
 
-++close++
++++close+++
 
 
 ==================================================================
@@ -46,6 +46,7 @@ The template
 
 }}
 
+{{! +++fold-on+++ }}
 
 
       "AWSInstanceType2Arch" : {
@@ -65,3 +66,5 @@ The template
            "us-west-2" : { "64" : "ami-57e8d767" }
       }
 
+
+{{! +++fold-off+++ }}

@@ -2,7 +2,7 @@
 
     resource.mustache
 
-++start++
++++start+++
 
 ## <a id="resource.mustache"></a>resource.mustache <a class='navigator' href='#top'">[top]</a>
 
@@ -14,16 +14,12 @@ Dispatches resource sub-type templates based resource Type propertys
 * `Instance`: sub-document defining an EC instance
 
 
-**Actions**:
-
-* include <a href="#resourceInstance.mustache">resourceInstance.mustache</a> if `Instance` 
-
-> resourceInstance
-
-++close++
-
-
++++close+++
 
 }}
 
+{{! +++fold-on+++ }}
+
 {{# Instance }}{{> resourceInstance}}{{/ Instance }}
+
+{{! +++fold-off+++ }}

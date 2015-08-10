@@ -6,7 +6,7 @@
 STYLE section
 ==================================================================
 
-++start++
++++start+++
 <style>
 h1 {
     color:blue; 
@@ -26,16 +26,32 @@ h3 {
 body {
     background-color: #b0c4de;
 } 
+/* Support fold-on/fold-off toggle */
+div.fold { 
+    width: 90%; padding: .42rem; border-radius: 5px;  margin: 1rem; 
+
+}
+div.fold div { 
+       height: 0px; margin: .2rem; overflow: hidden; 
+}
+div.toggle ~ div { height: 0px; margin: .2rem; overflow: hidden; }
+input.toggle:checked ~ div { 
+     height: auto;      
+     color: white; 
+     background: #c6a24b;
+     font-family: monospace;
+     white-space: pre; 
+}
 </style>
 
-++close++
++++close+++
 
 
 ==================================================================
 CONTENT section
 ==================================================================
 
-++start++
++++start+++
 
 # <a id="top">aws-must demo 7 template</a>
 
@@ -84,8 +100,7 @@ each template, it
 * documents the attribute context e.g. `.` or `./resources/Instance`,
   and attributes referenced within the template
 
-* lists template actions, i.e.  output from template, or template
-  inclusion
+* checkbox to show template implementation
 
 ### Table of contents
 <ul>
@@ -129,7 +144,7 @@ to an</li><ul>
 response to describe stack calls </li> </ul>
 
 
-## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
+## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'>[top]</a>
 
 Starting point of template rendering.
 
@@ -140,27 +155,11 @@ Starting point of template rendering.
 * `resources`: array of resource sub-documents for CloudFormation Resources -section
 * `outputs`: array of output sub-documents for CloudFormation Outputs -section
 
-
-**Actions**:
-
-* **Description**: `description`
-* **for** `parameter` **in** `parameters`  **include** <a href="#parameter.mustache">parameter.mustache</a>
-* **include** <a href="#mappings.mustache">mappings.mustache</a>
-* **include** <a href="#resources.mustache">resources.mustache</a>
-* **for** `resource` **in** `resource` **include** <a href="#resource.mustache">resource.mustache</a>
-* **for** `output` **in** `outputs` **include** <a href="#output.mustache">output.mustache</a>
-
-
-> parameter
-> mappings
-> resources
-> resource
-> output
-
-
-++close++
++++close+++
 
 }}
+
+{{! +++fold-on+++ }}
 
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
@@ -189,3 +188,30 @@ Starting point of template rendering.
   }
 
 }
+
+{{! +++fold-off+++ }}
+
+
+{{! 
+
+==================================================================
+INCLUDED templates
+==================================================================
+
++++start+++
+
+
+> parameter
+> mappings
+> resources
+> resource
+> resourceInstance
+> resourceSecurityGroup
+> tag
+> output
+
+
++++close+++
+
+}}
+

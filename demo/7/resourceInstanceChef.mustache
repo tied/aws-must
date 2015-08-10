@@ -1,10 +1,10 @@
 {{!
 
 
-++start++
++++start+++
 
 
-## <a id="resourceInstanceChef.mustache"></a>resourceInstanceChef.mustache<a class='navigator' href='#top'"> [top]</a>
+## <a id="resourceInstanceChef.mustache"></a>resourceInstanceChef.mustache<a class='navigator' href='#top'> [top]</a>
 
 UserData -script to install Chef
 
@@ -12,18 +12,13 @@ UserData -script to install Chef
 
 * `Version`: Chef version to install
 
-**Actions**:
 
-* /bin/bash
-  * CHEF_VERSION=`Version`
-  * LOG="/tmp/install.log"
-  * `curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -v $CHEF_VERSION  >>$LOG 2>&1`
-
-
-++close++
++++close+++
 
 }}
 
+
+{{! +++fold-on+++ }}
 
 
         "Fn::Base64": { "Fn::Join": [
@@ -46,3 +41,4 @@ UserData -script to install Chef
 
 
 
+{{! +++fold-off+++ }}

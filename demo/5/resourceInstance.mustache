@@ -1,7 +1,7 @@
 {{!
 
 
-++start++
++++start+++
 
 
 ## <a id="resourceInstance.mustache"></a>resourceInstance.mustache <a class='navigator' href='#top'">[top]</a>
@@ -14,15 +14,11 @@ Create an EC2 instance
 * `InstanceType` : The instance type, such as t2.micro. 
 
 
-**Actions**:
-
-* **Name**:  `Name`
-* **Type**: 'AWS::EC2::Instance'
-* **ImageId**: **AWSRegionArch2AMI**( 'AWS::Region', **AWSInstanceType2Arch**(`InstanceType`))
-
-++close++
++++close+++
 
 }}
+
+{{! +++fold-on+++ }}
 
 
     "{{Name}}" : {
@@ -33,3 +29,5 @@ Create an EC2 instance
         "InstanceType" : "{{InstanceType}}"
       } {{! Propertites }}
     }{{_comma}}
+
+{{! +++fold-off+++ }}

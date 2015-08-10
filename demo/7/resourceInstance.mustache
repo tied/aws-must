@@ -1,10 +1,10 @@
 {{!
 
 
-++start++
++++start+++
 
 
-## <a id="resourceInstance.mustache"></a>resourceInstance.mustache <a class='navigator' href='#top'">[top]</a>
+## <a id="resourceInstance.mustache"></a>resourceInstance.mustache <a class='navigator' href='#top'>[top]</a>
 
 Create an EC2 instance
 
@@ -16,22 +16,12 @@ Create an EC2 instance
 * `InstallChef`: add UserData to install Chef
 
 
-**Actions**:
 
-* **Name**:  `Name`
-* **Type**: 'AWS::EC2::Instance'
-* **for** `tag` **in** `tags` **include**  <a href="#tag.mustache">tag.mustache</a>
-* **SecurityGroups.Ref**: `SecurityGroup` if `SecurityGroup`
-* **ImageId**: **AWSRegionArch2AMI**( 'AWS::Region', **AWSInstanceType2Arch**(`InstanceType`))
-* **KeyName**: `KeyName` if `KeyName`
-* **include** <a href="#resourceInstanceChef.mustache">resourceInstanceChef.mustache</a> if `InstallChef`
-
-> tag
-> resourceInstanceChef
-
-++close++
++++close+++
 
 }}
+
+{{! +++fold-on+++ }}
 
 
     "{{Name}}" : {
@@ -46,3 +36,5 @@ Create an EC2 instance
         {{#InstallChef }}, "UserData": { {{> resourceInstanceChef }} }{{/ InstallChef }}
       }
     }{{_comma}}
+
+{{! +++fold-off+++ }}

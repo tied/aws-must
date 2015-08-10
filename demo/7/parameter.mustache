@@ -1,9 +1,9 @@
 {{!
 
 
-++start++
++++start+++
 
-## <a id="parameter.mustache"></a>parameter.mustache <a class='navigator' href='#top'">[top]</a>
+## <a id="parameter.mustache"></a>parameter.mustache <a class='navigator' href='#top'>[top]</a>
 
 Create one parameter entry to CloudFormation JSON parameter section
 
@@ -17,18 +17,12 @@ Create one parameter entry to CloudFormation JSON parameter section
 * `Value`: value of the parameter
 
 
-**Actions**:
-
-* **Name**: `Name`
-* **Description**: `Description`
-* **Type**: `Type`
-* **Default**: `Value`
-
-++close++
++++close+++
 
 }}
 
 
+{{! +++fold-on+++ }}
 
 
     "{{Name}}": {
@@ -36,3 +30,5 @@ Create one parameter entry to CloudFormation JSON parameter section
       "Type": "{{Type}}",
       "Default" : "{{Value}}"
     }{{_comma}}
+
+{{! +++fold-off+++ }}

@@ -6,7 +6,7 @@
 STYLE section
 ==================================================================
 
-++start++
++++start+++
 
 <style>
 h1 {
@@ -24,16 +24,32 @@ h3 {
 body {
     background-color: #b0c4de;
 } 
+/* Support fold-on/fold-off toggle */
+div.fold { 
+    width: 90%; padding: .42rem; border-radius: 5px;  margin: 1rem; 
+
+}
+div.fold div { 
+       height: 0px; margin: .2rem; overflow: hidden; 
+}
+div.toggle ~ div { height: 0px; margin: .2rem; overflow: hidden; }
+input.toggle:checked ~ div { 
+     height: auto;      
+     color: white; 
+     background: #c6a24b;
+     font-family: monospace;
+     white-space: pre; 
+}
 </style>
 
-++close++
++++close+++
 
 
 ==================================================================
 CONTENT section
 ==================================================================
 
-++start++
++++start+++
 
 # <a id="top">aws-must demo 4 template</a>
 
@@ -67,8 +83,7 @@ each template, it
 * documents the attribute context e.g. `.` or `./resources/Instance`,
   and attributes references of the template
 
-* lists template actions, i.e.  output from template, or template
-  inclusion
+* checkbox to show template implementation
 
 
 ## <a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a>
@@ -79,21 +94,12 @@ Starting point of template rendering.
 
 * `description`: description for the CF template
 
-**Actions**:
 
-* **Description**: `description`
-* **include** <a href="#resources.mustache">resources.mustache</a>
-* **for** `resource` **in** `resource` **include** <a href="#resource.mustache">resource.mustache</a>
-* **for** `output` **in** `outputs` **include** <a href="#output.mustache">output.mustache</a>
-
-
-> resources
-> resource
-> output
-
-++close++
++++close+++
 
 }}
+
+{{! +++fold-on+++ }}
 
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
@@ -114,3 +120,24 @@ Starting point of template rendering.
   }
 
 }
+
+{{! +++fold-off+++ }}
+
+
+{{! 
+
+==================================================================
+INCLUDED templates
+==================================================================
+
++++start+++
+
+> resources
+> resource
+> resourceInstance
+> resourceSecurityGroup
+> output
+
++++close+++
+
+}}

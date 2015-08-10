@@ -1,9 +1,9 @@
 {{!
 
 
-++start++
++++start+++
 
-## <a id="tag.mustache"></a>tag.mustache <a class='navigator' href='#top'">[top]</a>
+## <a id="tag.mustache"></a>tag.mustache <a class='navigator' href='#top'>[top]</a>
 
 One key-value pair in EC2 instance Tags -array
 
@@ -12,19 +12,13 @@ One key-value pair in EC2 instance Tags -array
 * `Key`: of the tag entry
 * `Value`: of the tag entry
 
-**Actions**:
-
-* **Key**: `Name`
-* **Value**: `Value`
-
-
-
-++close++
-
-
++++close+++
 
 }}
 
+{{! +++fold-on+++ }}
+
 { "Key" : "{{Key}}",  "Value" : "{{Value}}"{{_comma}} }
 
+{{! +++fold-off+++ }}
 

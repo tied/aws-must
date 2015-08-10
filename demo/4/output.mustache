@@ -1,7 +1,7 @@
 {{!
 
 
-++start++
++++start+++
 
 ## <a id="output.mustache"></a>output.mustache <a class='navigator' href='#top'">[top]</a>
 
@@ -18,17 +18,11 @@ Create one output entry to CloudFormation JSON output section
   * `Name`: name of the attribute
 
 
-
-**Actions**:
-
-* **Name**: `Name`
-* **Description**: `Description`
-* **Value**: **Ref** if `Ref`
-* **Value**: `Attr.Ref`, `Attr.Name` if `Attr`
-
-++close++
++++close+++
 
 }}
+
+{{! +++fold-on+++ }}
 
 
     "{{Name}}": {
@@ -37,3 +31,5 @@ Create one output entry to CloudFormation JSON output section
       {{#Attr}}, "Value" : { "Fn::GetAtt" : [ "{{Ref}}", "{{Name}}" ] }{{/Attr}}
     }{{_comma}}
 
+
+{{! +++fold-off+++ }}

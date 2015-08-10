@@ -12,8 +12,13 @@ class App < Thor
   # default values
 
   DEAFAULT_TEMPLATE="root"    # name of template in :template_path -directory
-  DEFAUL_FOLD_ON="foldon"     # default output for +++fold-on+++ tag
-  DEFAUL_FOLD_OFF="foldoff"   # default output for +++fold-off+++ tag
+
+  # DEFAUL_FOLD_ON="<!--*SED-MAGIC* <div class=window> -->"     # default output for +++fold-on+++ tag
+  # DEFAUL_FOLD_OFF="<!--*SED-MAGIC* </div>  -->"               # default output for +++fold-off+++ tag
+
+  # default output for +++fold-on+++ tag
+  DEFAUL_FOLD_ON="<div class='fold'>Check to show template: <input type='checkbox' class='toggle'/><div>"
+  DEFAUL_FOLD_OFF="</div></div>"                # default output for +++fold-off+++ tag
 
   # ------------------------------------------------------------------
 
@@ -57,7 +62,13 @@ class App < Thor
   - #{AwsMust::Docu::DEFAULT_FOLD_OFF_TAG} -tag: output text for --fold_off option (defaults '#{DEFAUL_FOLD_OFF}')
 
 
+  Defult fold_on and fold_off parameters implement toggle when using following css-code
 
+          /* Support fold-on/fold-off toggle */\n
+          div.fold { width: 90%; padding: .42rem; border-radius: 5px;  margin: 1rem; }\n
+          div.fold div { height: 0px; margin: .2rem; overflow: hidden; }\n
+          div.toggle ~ div { height: 0px; margin: .2rem; overflow: hidden; }\n
+          input.toggle:checked ~ div { height: auto;color: white; background: #c6a24b;font-family: monospace;white-space: pre; }\n
 
 
 LONGDESC

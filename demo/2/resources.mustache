@@ -2,7 +2,7 @@
 
     resources.mustache - fixed resources
 
-++start++
++++start+++
 
 ## <a id="resources.mustache"></a>resources.mustache <a class='navigator' href='#top'">[top]</a>
 
@@ -11,11 +11,12 @@ Create an EC2 with following fixed parameters
 * `ImageId` : "ami-00dae61d",
 * `InstanceType` : "t2.micro"
 
-++close++
++++close+++
 
 
 }}
 
+{{! +++fold-on+++ }}
 
     "MyEC2Instance" : {
       "Type" : "AWS::EC2::Instance",
@@ -24,3 +25,6 @@ Create an EC2 with following fixed parameters
         "InstanceType" : "t2.micro"
       }
     }
+
+
+{{! +++fold-off+++ }}
