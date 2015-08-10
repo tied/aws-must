@@ -78,7 +78,6 @@ Add following lines to `Gemfile`
     source 'https://rubygems.org'
 	gem 'aws-must'
 
-
 and run
 
 	bundle install
@@ -104,7 +103,11 @@ issue the command
 
 	aws-must.rb doc 
 	
-To see more information on how documentation is generated, issue the the command
+
+Documentation is extracted from lines surrounded by **+++start+++**
+and **+++close+++** tags, or by **+++fold-on+++** and
+**+++fold-off+++** tags. To see more information on how documentation
+is generated, issue the the command
 
 	aws-must.rb help doc 
 

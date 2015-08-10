@@ -62,9 +62,9 @@ class App < Thor
   - #{AwsMust::Docu::DEFAULT_FOLD_OFF_TAG} -tag: output text for --fold_off option (defaults '#{DEFAUL_FOLD_OFF}')
 
 
-  Defult fold_on and fold_off parameters implement toggle when using following css-code
+  Defult fold_on and fold_off parameters implement CCS-toggle when using following css-code
 
-          /* Support fold-on/fold-off toggle */\n
+          /* CSS-support fold-on/fold-off toggle */\n
           div.fold { width: 90%; padding: .42rem; border-radius: 5px;  margin: 1rem; }\n
           div.fold div { height: 0px; margin: .2rem; overflow: hidden; }\n
           div.toggle ~ div { height: 0px; margin: .2rem; overflow: hidden; }\n

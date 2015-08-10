@@ -1,6 +1,9 @@
 
 ## 0.0.7-SNAPSHOT/20150617-16:50:31
 
+* add support for folding template data using `+++fold-on+++` and
+  `+++fold-off+++` directives, see more in `aws-must.rb help doc`
+
 * output instructions to use `--template_path` -option when root template file not found
 
 * Adjust rule changed: "By default 'adjusts' data, i.e. adds property
