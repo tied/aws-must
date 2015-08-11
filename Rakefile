@@ -113,13 +113,15 @@ end
 # common methods
 
 def capture_stdout_to( file )
-  real_stdout, = $stdout
+  real_stdout, = $stdout.clone
   $stdout.reopen( file )
   $stdout.sync = true
   yield
   # $stdout.string
 ensure
-  $stdout = real_stdout
+  $stdout.reopen( real_stdout )
+  $stdout.sync = true
+
 end
 
 # ------------------------------------------------------------------
