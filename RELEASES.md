@@ -1,5 +1,8 @@
 
 ## 0.0.8-SNAPSHOT/20150810-14:17:42
+
+* include html-documents for demo cases in `generated-docs` folder
+
 ## 0.0.7/20150810-14:17:33
 
 * add support for folding template data using `+++fold-on+++` and

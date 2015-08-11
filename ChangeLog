@@ -1,3 +1,12 @@
+2015-08-11  jj  <jj@horsti>
+
+	* lib/tasks/demo.rake (#html_doc_to_stdout): added DRY method (for
+	demo:html and demo:doc)
+
+	* Rakefile (#version): Added task `docs`
+	(version): new task
+	(#capture_stdout_to): added method 
+
 2015-07-30  jj  <jj@horsti>
 
 	* spec/utils/hasher_spec.rb (Tst): expect last ement contain empty comma element

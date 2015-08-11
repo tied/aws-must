@@ -1,10 +1,19 @@
 # -*- mode: ruby -*-
 
+require "stringio"
+
 # ------------------------------------------------------------------
 # default
 
 
 task :default => [:usage]
+
+# ------------------------------------------------------------------
+# configs
+
+demo_dir          = "demo"
+generate_docs_dir = "generated-docs"
+
 
 # ------------------------------------------------------------------
 # Internal development
@@ -80,10 +89,37 @@ namespace "dev" do |ns|
     sh "gem push ./aws-must-#{version}.gem"
   end
 
+  desc "Generate docs for demo into `{generate_docs_dir}` -subdirectory"
+  task :docs do
+    Dir.foreach(demo_dir) do |item|
+
+      next if item == '.' or item == '..'
+      raketask = "demo:doc-#{item}"
+      if File.directory?("#{demo_dir}/#{item}") and  Rake::Task.task_defined?( raketask ) then
+        file = "#{generate_docs_dir}/#{item}.html"
+        capture_stdout_to( file )  { Rake::Task[raketask].invoke  }
+      end
+    end
+  end
+
+
   desc "Unit test, release, create gem, install gem locally, snapshot"
   task "full-delivery" => [ "dev:rspec", "rt:release", "rt:push", "dev:build", "dev:install", "rt:snapshot" ]
 
 
+end
+
+# ------------------------------------------------------------------
+# common methods
+
+def capture_stdout_to( file )
+  real_stdout, = $stdout
+  $stdout.reopen( file )
+  $stdout.sync = true
+  yield
+  # $stdout.string
+ensure
+  $stdout = real_stdout
 end
 
 # ------------------------------------------------------------------

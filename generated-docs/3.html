@@ -1,0 +1,136 @@
+<p><style>
+h1 {
+    color:blue; 
+    font-size: 2.5em;
+   }
+h2 {
+      color:blue;
+      font-size: 1.5em;
+   }
+h3 {
+      color:blue;
+      font-size: 1.5em;
+   }
+body {
+    background-color: #b0c4de;
+} 
+/* Support fold-on/fold-off toggle */
+div.fold { 
+    width: 90%; padding: .42rem; border-radius: 5px;  margin: 1rem; </p>
+
+<p>}
+div.fold div { 
+       height: 0px; margin: .2rem; overflow: hidden; 
+}
+div.toggle ~ div { height: 0px; margin: .2rem; overflow: hidden; }
+input.toggle:checked ~ div { 
+     height: auto; <br />
+     color: white; 
+     background: #c6a24b;
+     font-family: monospace;
+     white-space: pre; 
+}
+</style></p>
+
+<h1><a id="top">aws-must demo 3 template</a></h1>
+
+<p>Creates a EC2 instances using YAML configuration defining <code>ImageId</code>
+(e.g. ami-00dae61d) and <code>InstanceType</code> (e.g. t2.micro).</p>
+
+<p>Supports only region <code>eu-central-1</code>. No ssh connection allowed by
+default.</p>
+
+<p><strong>Parameters</strong>:</p>
+
+<ul>
+<li><code>InstanceType</code>: EC2 resource instance type, (default: t2.micro)</li>
+</ul>
+
+<h2>Document Content</h2>
+
+<p>This document is generated automically from <code>aws-must</code> -demo
+templates. </p>
+
+<p>Output contains markdown syntax between
+<strong>&plus;&plus;start&plus;&plus;</strong> and
+<strong>&plus;&plus;close&plus;&plus;</strong> -tags from the template files. For
+each template, it</p>
+
+<ul>
+<li><p>gives a general description of the template</p></li>
+<li><p>documents the attribute context e.g. <code>.</code> or <code>./resources/Instance</code>,
+and attributes references of the template</p></li>
+<li><p>checkbox to show template implementation</p></li>
+</ul>
+
+<h2><a id="root.mustache"></a>root.mustache <a class='navigator' href='#top'">[top]</a></h2>
+
+<p>Root template </p>
+
+<p><strong>Attributes</strong>: context= <code>.</code></p>
+
+<ul>
+<li><code>description</code>: description for the CF template</li>
+</ul>
+
+<div class='fold'>Check to show template: <input type='checkbox' class='toggle'/><div>
+
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description" : "{{description}}",
+  "Resources" : {
+    {{> resources }}
+  }
+}
+
+</div></div>
+
+<h2>resources.mustache</h2>
+
+<p>Nothing created here</p>
+
+<div class='fold'>Check to show template: <input type='checkbox' class='toggle'/><div>
+
+    {{# resources }}{{> resource }}{{/ resources }}
+
+</div></div>
+
+<h2><a id="resource.mustache"></a>resource.mustache <a class='navigator' href='#top'">[top]</a></h2>
+
+<p>Dispatches resource sub-type templates based resource Type propertys</p>
+
+<p><strong>Attributes</strong>: context=  <code>./resources</code></p>
+
+<ul>
+<li><code>Instance</code>: sub-document defining an EC instance</li>
+</ul>
+
+<div class='fold'>Check to show template: <input type='checkbox' class='toggle'/><div>
+
+{{# Instance }}{{> resourceInstance}}{{/ Instance }}
+
+</div></div>
+
+<h2><a id="resourceInstance.mustache"></a>resourceInstance.mustache <a class='navigator' href='#top'">[top]</a></h2>
+
+<p>Create an EC2 instance</p>
+
+<p><strong>Attributes</strong>: context=  <code>./resources/Instance</code></p>
+
+<ul>
+<li><code>Name</code>: name of the EC2 instance to create</li>
+<li><code>ImageId</code>: AIM id to create</li>
+</ul>
+
+<div class='fold'>Check to show template: <input type='checkbox' class='toggle'/><div>
+
+
+    "{{Name}}" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId" : "{{ImageId}}",
+        "InstanceType" : "{{InstanceType}}"
+      }
+    }{{_comma}}
+
+</div></div>

@@ -19,7 +19,7 @@ namespace "demo" do |ns|
 
   all_regions= ["ap-northeast-1", "ap-southeast-1", "ap-southeast-2", "cn-north-1", "eu-central-1", "eu-west-1", "sa-east-1", "us-east-1", "us-gov-west-1", "us-west-1", "us-west-2"] 
 
-  [ 
+  demos =   [ 
 
    { :id => "1", :desc=>"Initial copy", :region=>['eu-central-1'], :ssh => false },
    { :id => "2", :desc=>"Added 'description' property, Use resources.mustache -partial", :region=>['eu-central-1'], :ssh => false    },
@@ -29,8 +29,9 @@ namespace "demo" do |ns|
    { :id => "6", :desc=>"Create security group, and EC2 instances", :region=>all_regions, :ssh => true  },
    { :id => "7", :desc=>"Add support for installing Chef", :region=>all_regions, :ssh => true  },
 
+  ]
 
-  ].each do  |c|
+  demos.each do  |c|
 
     desc "Output CF template using configs in '#{demo_dir}/#{c[:id]}' to demonstrate '#{c[:desc]}'"
     task "template-#{c[:id]}" do
@@ -60,12 +61,22 @@ namespace "demo" do |ns|
       sh "aws cloudformation create-stack --stack-name #{stack}  --template-body \"$(#{cmd} gen -t #{demo_dir}/#{c[:id]} #{demo_dir}/#{c[:id]}/conf.yaml)\""
     end
 
-    desc "Open html documentation in 'browser' (default 'firefox')"
+    desc "Output html documentation for demo case #{c[:id]} to STDOUT"
+    task "doc-#{c[:id]}"  do |t,args|
+      # sh "#{cmd} doc -t #{demo_dir}/#{c[:id]} | markdown"
+      sh html_doc_to_stdout( cmd, demo_dir, c )
+    end
+
+
+    desc "Open html documentation for demo case #{c[:id]} in 'browser' (default 'firefox')"
     task "html-#{c[:id]}", :browser  do |t,args|
 
       args.with_defaults( browser: "firefox" )
 
-      sh "#{cmd} doc -t #{demo_dir}/#{c[:id]} | markdown | #{args.browser} \"data:text/html;base64,$(base64 -w 0 <&0)\""
+      # sh "#{cmd} doc -t #{demo_dir}/#{c[:id]} | markdown | #{args.browser} \"data:text/html;base64,$(base64 -w 0 <&0)\""
+      sh "#{html_doc_to_stdout( cmd, demo_dir, c )}  | #{args.browser} \"data:text/html;base64,$(base64 -w 0 <&0)\""
+
+
     end
 
 
@@ -98,6 +109,14 @@ namespace "demo" do |ns|
         FileUtils.cp(f, args.configDir, :verbose=>true )
       }
 
+    end
+    
+    # ------------------------------------------------------------------
+    # common methods
+
+    # sh-commnand pipelito to create mardown documentation for demo case c[:id]
+    def html_doc_to_stdout( cmd, demo_dir, c ) 
+      return "#{cmd} doc -t #{demo_dir}/#{c[:id]} | markdown"
     end
 
 

@@ -1,0 +1,68 @@
+<p><style>
+h1 {
+    color:blue; 
+    font-size: 2.5em;
+   }
+h2 {
+      color:blue;
+      font-size: 1.5em;
+   }
+body {
+    background-color: #b0c4de;
+} 
+/* Support fold-on/fold-off toggle */
+div.fold { 
+    width: 90%; padding: .42rem; border-radius: 5px;  margin: 1rem; </p>
+
+<p>}
+div.fold div { 
+       height: 0px; margin: .2rem; overflow: hidden; 
+}
+div.toggle ~ div { height: 0px; margin: .2rem; overflow: hidden; }
+input.toggle:checked ~ div { 
+     height: auto; <br />
+     color: white; 
+     background: #c6a24b;
+     font-family: monospace;
+     white-space: pre; 
+}
+</style></p>
+
+<h1><a id="top">aws-must demo 2 template</a></h1>
+
+<p>Create an EC2 with following fixed parnameters <code>ImageId</code>
+("ami-00dae61d") and <code>InstanceType</code> ("t2.micro")</p>
+
+<div class='fold'>Check to show template: <input type='checkbox' class='toggle'/><div>
+
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description" : "{{description}}",
+  "Resources" : {
+    {{> resources }}
+  }
+}
+
+</div></div>
+
+<h2><a id="resources.mustache"></a>resources.mustache <a class='navigator' href='#top'">[top]</a></h2>
+
+<p>Create an EC2 with following fixed parameters</p>
+
+<ul>
+<li><code>ImageId</code> : "ami-00dae61d",</li>
+<li><code>InstanceType</code> : "t2.micro"</li>
+</ul>
+
+<div class='fold'>Check to show template: <input type='checkbox' class='toggle'/><div>
+
+    "MyEC2Instance" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId" : "ami-00dae61d",
+        "InstanceType" : "t2.micro"
+      }
+    }
+
+
+</div></div>
