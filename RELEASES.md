@@ -1,5 +1,5 @@
 
-## 0.0.8-SNAPSHOT/20150810-14:17:42
+## 0.0.8/20150811-11:05:16
 
 * linked example documents to README
 * include html-documents for demo cases in `generated-docs` folder
