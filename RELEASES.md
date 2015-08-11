@@ -1,5 +1,9 @@
 
 ## 0.0.9-SNAPSHOT/20150811-11:05:23
+
+* 	https://rawgit.com/[user]/[repository]/[branch]/[filename.ext] for
+	html links
+
 ## 0.0.8/20150811-11:05:16
 
 * linked example documents to README
