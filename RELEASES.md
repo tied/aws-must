@@ -1,6 +1,7 @@
 
 ## 0.0.8-SNAPSHOT/20150810-14:17:42
 
+* linked example documents to README
 * include html-documents for demo cases in `generated-docs` folder
 
 ## 0.0.7/20150810-14:17:33

@@ -103,8 +103,8 @@ namespace "dev" do |ns|
   end
 
 
-  desc "Unit test, release, create gem, install gem locally, snapshot"
-  task "full-delivery" => [ "dev:rspec", "rt:release", "rt:push", "dev:build", "dev:install", "rt:snapshot" ]
+  desc "Unit test, create demo html documents, release, create gem, install gem locally, snapshot"
+  task "full-delivery" => [ "dev:rspec", "dev:docs", "rt:release", "rt:push", "dev:build", "dev:install", "rt:snapshot" ]
 
 
 end

@@ -106,8 +106,13 @@ issue the command
 
 Documentation is extracted from lines surrounded by **+++start+++**
 and **+++close+++** tags, or by **+++fold-on+++** and
-**+++fold-off+++** tags. To see more information on how documentation
-is generated, issue the the command
+**+++fold-off+++** tags. Examples documents for
+[demo:html-7](generated-docs/7.html),
+[demo:html-6](generated-docs/6.html),
+[demo:html-5](generated-docs/5.html),
+[demo:html-4](generated-docs/4.html), and
+[demo:html-3](generated-docs/3.html).  To see more information on how
+documentation is generated, issue the the command
 
 	aws-must.rb help doc 
 
