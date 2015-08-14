@@ -18,14 +18,16 @@ Gem::Specification.new do |s|
 aws-must is a tool, which allows separating infrastructure
 configuration and Amazon related syntax using YAML and Mustache templates
 EOF
-  s.authors         = ["jarjuk"]
-  s.files           = ["README.md"] | Dir.glob("lib/**/*") | Dir.glob( "demo/**/*" )
-  s.require_paths   = [ "lib" ]
-  s.executables     = [ "aws-must.rb" ]
-  s.license       = 'MIT'
+  s.authors               = ["jarjuk"]
+  s.files                 = ["README.md"] | Dir.glob("lib/**/*") | Dir.glob( "demo/**/*" ) | Dir.glob( "mustache/**/*" )
+  s.require_paths         = [ "lib" ]
+  s.executables           = [ "aws-must.rb" ]
+  s.license               = 'MIT'
+
+  s.required_ruby_version = '~> 2'
 
 
-  s.add_dependency 'mustache',          '1.0.1'
-
+  s.add_dependency 'mustache',          '~>1.0.1'
+  s.add_dependency 'thor',              '~>0.18.1'
 
 end

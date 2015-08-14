@@ -1,3 +1,9 @@
+2015-08-14  jj  <jj@horsti>
+
+	* aws-must.gemspec: Added dependency to thor,
+	required_ruby_version, added mustache/**/* to files
+
+
 2015-08-11  jj  <jj@horsti>
 
 	* README.md: use

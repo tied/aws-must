@@ -1,5 +1,10 @@
 
 ## 0.0.10-SNAPSHOT/20150811-11:19:22
+
+* added option -g (for specifiyng template gem and version information)
+* gemspec modifications
+
+
 ## 0.0.9/20150811-11:19:16
 
 * 	https://rawgit.com/[user]/[repository]/[branch]/[filename.ext] for

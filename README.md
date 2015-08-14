@@ -98,11 +98,26 @@ template `./mustache/root.mustache` issue the command
 
 	aws-must.rb gen yaml_file
 
-To extract documentation from template `./mustache/root.mustache`,
+The path of Mustache templates can be changed using `-t` option, or by
+giving the name of a gem with a `-g` option. For example, to use the
+latest version of
+[aws-must-templates](https://github.com/jarjuk/aws-must-templates),
+use the command
+
+	aws-must.rb gen yaml_file -g aws-must-templates
+
+The version constraint for the gem can be specified followed by a
+comma -character. For example, to use version specification `~>0.0.1`,
 issue the command
 
+	aws-must.rb gen yaml_file -g 'aws-must-templates,~>0.0.1'
+
+To extract documentation for the templates
+
 	aws-must.rb doc 
-	
+
+The documentation command supports the same `-t` and `-g` options, as
+the `gen` -command.
 
 Documentation is extracted from lines surrounded by **+++start+++**
 and **+++close+++** tags, or by **+++fold-on+++** and
@@ -249,6 +264,6 @@ See [RELEASES](RELEASES.md)
 MIT
 
 
-	 
+
 
 
