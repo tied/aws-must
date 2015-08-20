@@ -1,6 +1,11 @@
 
 ## 0.0.12-SNAPSHOT/20150820-21:22:55
+
 ## 0.0.11/20150820-21:22:43
+
+* [README](README.md) added link to
+  [aws-must-templates](https://github.com/jarjuk/aws-must-templates)
+
 ## 0.0.10/20150814-10:56:52
 
 * added option -g (for specifiyng template gem and version information)
