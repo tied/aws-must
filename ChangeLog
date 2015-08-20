@@ -1,3 +1,8 @@
+2015-08-20  jj  <jj@horsti>
+
+	* README.md: Add link
+	[aws-must-templates](https://github.com/jarjuk/aws-must-templates)
+
 2015-08-14  jj  <jj@horsti>
 
 	* aws-must.gemspec: Added dependency to thor,

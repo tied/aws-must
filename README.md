@@ -13,6 +13,11 @@ See blog posts
 background information on this tool.
 
 
+See also
+[aws-must-templates](https://github.com/jarjuk/aws-must-templates) for
+[set of templates](https://rawgit.com/jarjuk/aws-must-templates/master/generated-docs/aws-must-templates.html)
+to generate CloudFormation JSON from YAML configuration.
+
 ## The Problem
 
 [Amazon CloudFormation](http://aws.amazon.com/cloudformation/) gives
