@@ -1,5 +1,5 @@
 
-## 0.0.11-SNAPSHOT/20150814-10:57:03
+## 0.0.11/20150820-21:22:43
 ## 0.0.10/20150814-10:56:52
 
 * added option -g (for specifiyng template gem and version information)
