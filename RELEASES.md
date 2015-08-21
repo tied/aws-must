@@ -1,6 +1,10 @@
 
 ## 0.0.12-SNAPSHOT/20150820-21:22:55
 
+* code modifications:
+  * refractor aws-must.generate --> aws-must.generate_str
+  * better support for rspec 
+  
 ## 0.0.11/20150820-21:22:43
 
 * [README](README.md) added link to

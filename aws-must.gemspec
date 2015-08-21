@@ -23,6 +23,7 @@ EOF
   s.require_paths         = [ "lib" ]
   s.executables           = [ "aws-must.rb" ]
   s.license               = 'MIT'
+  s.homepage              = "https://github.com/jarjuk/aws-must"
 
   s.required_ruby_version = '~> 2'
 

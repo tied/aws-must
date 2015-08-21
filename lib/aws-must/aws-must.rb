@@ -60,6 +60,10 @@ module AwsMust
     # from 'yaml_file'
 
     def generate( template_name, yaml_file, options ) 
+      puts generate_str( template_name, yaml_file, options )
+    end
+
+    def generate_str( template_name, yaml_file, options ) 
 
       @logger.debug( "#{__method__}, template_name '#{template_name}'" )
       @logger.debug( "#{__method__}, yaml_file= '#{yaml_file}'" )
@@ -71,7 +75,7 @@ module AwsMust
       data = adjust( data )
       @logger.debug( "#{__method__}, data= '#{data}'" )
 
-      puts template.to_str( template_name, data )
+      return template.to_str( template_name, data )
 
     end
 

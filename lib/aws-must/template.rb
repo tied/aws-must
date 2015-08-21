@@ -34,13 +34,15 @@ module AwsMust
     # ------------------------------------------------------------------
     # Services
     
-    def to_str( template_name, data )
+    def to_str( template_name=nil, data=nil )
       @logger.debug( "#{__method__}: template_name=#{template_name}, data=#{data}" )
       if template_name 
         template = get_template( template_name )
         render( template, data )
-      else
+      elsif data
         render( data )
+      else
+        puts @templates
       end
     end
 
