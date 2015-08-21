@@ -1,5 +1,5 @@
 
-## 0.0.12-SNAPSHOT/20150820-21:22:55
+## 0.0.12/20150821-18:59:43
 
 * code modifications:
   * refractor aws-must.generate --> aws-must.generate_str
