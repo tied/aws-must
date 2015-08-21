@@ -1,6 +1,8 @@
 2015-08-21  jj  <jj@horsti>
 
-	* aws-must.gemspec: Add homepage
+	* aws-must.gemspec: Add homepage, relaxed version dependecies on
+	mustache and thor
+
 
 	* lib/aws-must/template.rb (AwsMust::Template#to_str): added
 	default values nil for template_name and data, because rpsec

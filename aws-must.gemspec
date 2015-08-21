@@ -28,7 +28,7 @@ EOF
   s.required_ruby_version = '~> 2'
 
 
-  s.add_dependency 'mustache',          '~>1.0.1'
-  s.add_dependency 'thor',              '~>0.18.1'
+  s.add_dependency 'mustache',          '>=1.0.1'
+  s.add_dependency 'thor',              '>=0.18.1'
 
 end

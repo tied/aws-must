@@ -1,5 +1,10 @@
 
 ## 0.0.13-SNAPSHOT/20150821-18:59:53
+
+* Depencies
+  * 'mustache',          '>=1.0.1' (prev ~>1.0.1)
+  * 'thor',              '>=0.18.1'(prev ~>0.18.1)
+
 ## 0.0.12/20150821-18:59:43
 
 * code modifications:
