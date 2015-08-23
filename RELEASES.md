@@ -1,9 +1,12 @@
 
 ## 0.0.13-SNAPSHOT/20150821-18:59:53
 
+* Options
+  * `-g` deprecated --> replaced with `-m`
+  * `-t` deprecated --> replaced with `-m`
 * Depencies
-  * 'mustache',          '>=1.0.1' (prev ~>1.0.1)
-  * 'thor',              '>=0.18.1'(prev ~>0.18.1)
+  * 'mustache',          '~>1.0.1' (prev ~>1.0.1)
+  * 'thor',              '~>0.18'(prev ~>0.18.1)
 
 ## 0.0.12/20150821-18:59:43
 

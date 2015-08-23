@@ -81,7 +81,7 @@ describe "AwsMust::Template" do
 
           expect( File ).to receive( :exists? ).with( template_filepath ).and_return( false )
 
-          expect { @sut.get_partial( template_name ) }.to raise_error( /No such file/ )
+          expect { @sut.get_partial( template_name ) }.to raise_error( /No such template/ )
         end 
 
       end # describe "get_partial" do
@@ -100,7 +100,7 @@ describe "AwsMust::Template" do
 
           expect( File ).to receive( :exists? ).with( template_filepath ).and_return( false )
 
-          expect { @sut.get_template( template_name ) }.to raise_error( /No such file/ )
+          expect { @sut.get_template( template_name ) }.to raise_error( /No such template/ )
         end 
 
       end # describe "get_template" do
@@ -178,7 +178,7 @@ describe "AwsMust::Template" do
         expect( File ).not_to receive( :read ).with( template_filepath2 )
         
         # exercise
-        expect { @sut.get_partial( template_name ) }.to raise_error( /No such file/ )
+        expect { @sut.get_partial( template_name ) }.to raise_error( /No such template/ )
 
       end 
 
