@@ -103,18 +103,17 @@ template `./mustache/root.mustache` issue the command
 
 	aws-must.rb gen yaml_file
 
-The location where Mustache templates are searched set using `-m`
+The location where to search Mustache templates can be set with `-m`
 option.The option accepts list of directory paths (ending with `/`
-character) or Gem names.  For example, to search templates first from
-`mydir`, and if not found from the latest version of
-[aws-must-templates](https://github.com/jarjuk/aws-must-templates),
-use the command
+character) or Gem names.  For example, to override templates in Gem
+[aws-must-templates](https://github.com/jarjuk/aws-must-templates)
+with templates in directory `mydir` use the command
 
 	aws-must.rb gen yaml_file -m mydir/ aws-must-templates
 
-The version constraint for the gem can be specified followed by a
-comma -character. For example, to use version specification `~>0.0.1`,
-issue the command
+A version constraint for the Gem can be specified followed by a comma
+-character. For example, to use version specification `~>0.0.1`, issue
+the command
 
 	aws-must.rb gen yaml_file -m 'aws-must-templates,~>0.0.1'
 
@@ -122,7 +121,7 @@ To extract documentation for the templates
 
 	aws-must.rb doc 
 
-The documentation command supports also `-m` option.
+The `doc` -command supports also `-m` option.
 
 Documentation is extracted from lines surrounded by **+++start+++**
 and **+++close+++** tags, or by **+++fold-on+++** and
@@ -146,7 +145,6 @@ To dump YAML `yaml_file` in JSON format
 ### Demo Usage
 
 Add the following lines to `Rakefile`
-
 
 	spec = Gem::Specification.find_by_name 'aws-must'
 	load "#{spec.gem_dir}/lib/tasks/demo.rake"
