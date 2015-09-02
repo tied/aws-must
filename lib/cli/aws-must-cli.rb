@@ -61,22 +61,29 @@ class App < Thor
   :array, :default =>  [ "mustache/"], 
   :desc => "Array of directory paths (ending with slash '/' char e.g. 'mustache/') of Gem names (optionally with version constraint e.g. 'aws-must-templates,~>0.0.1') holding mustache templates"
 
+
+  add_shared_option :fold_on, :aliases => "-n", :type => :string, 
+  :default => DEFAUL_FOLD_ON, 
+  :desc => "Output for +++fold-on+++ tag"
+
+  add_shared_option :fold_off, :aliases => "-f", :type => :string, 
+  :default => DEFAUL_FOLD_OFF, 
+  :desc => "Output for +++fold-off+++ tag"
+
+
+
   # ------------------------------------------------------------------
   # action 'doc'
 
-  desc "doc", "Extract template documentation"
+  desc "doc", "Extract documentation in template"
 
   shared_options :template_path
   shared_options :mustaches
   shared_options :template_gem
 
-  option :fold_on, :aliases => "-n", :type => :string, 
-  :default => DEFAUL_FOLD_ON, 
-  :desc => "Output for +++fold-on+++ tag"
+  shared_options :fold_on
+  shared_options :fold_off
 
-  option :fold_off, :aliases => "-f", :type => :string, 
-  :default => DEFAUL_FOLD_OFF, 
-  :desc => "Output for +++fold-off+++ tag"
 
   long_desc <<-LONGDESC
 
@@ -119,6 +126,31 @@ LONGDESC
     app.doc( template_name )
 
   end
+
+  # ------------------------------------------------------------------
+  # action 'ddoc'
+
+  desc "ddoc <pattern>", "Extract documentation in <pattern> files"
+
+  shared_options :fold_on
+  shared_options :fold_off
+
+
+  def ddoc( pattern )
+
+    @logger.info( "#{__method__} starting, options '#{options}'" )
+
+
+    files = Dir.glob( pattern ).sort
+    files.each do |file|
+      @logger.debug( "#{__method__}, file '#{file}'" )
+      fileProvider = AwsMust::FileProvider.new( options )
+      docu = AwsMust::Docu.new( fileProvider, options )
+      docu.document( file )
+    end
+    
+  end
+
 
   # ------------------------------------------------------------------
   # action 'json'
@@ -167,25 +199,6 @@ LONGDESC
     app = ::AwsMust::AwsMust.new( options )
     app.json( yaml_file, with_adjust =~ /^true$/ || with_adjust =~ /^yes$/  ? true : false  )
 
-  end
-
-  # ------------------------------------------------------------------
-  # action 'ddoc'
-
-  desc "ddoc <pattern>", "Document files identified by <pattern>"
-  def ddoc( pattern )
-
-    @logger.info( "#{__method__} starting, options '#{options}'" )
-
-
-    files = Dir.glob( pattern )
-    files.each do |file|
-      @logger.debug( "#{__method__}, file '#{file}'" )
-      fileProvider = AwsMust::FileProvider.new( options )
-      docu = AwsMust::Docu.new( fileProvider, options )
-      docu.document( file )
-    end
-    
   end
 
 
