@@ -1,4 +1,9 @@
 
+## 0.0.14/20150902-12:07:31
+
+* Added command `aws-must.rb ddoc`
+* Refractored `bin/aws-must.rb` to call `lib/cli/aws-must-cli.rb`
+
 ## 0.0.13/20150823-21:45:26
 
 * Options

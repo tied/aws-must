@@ -5,6 +5,7 @@ module AwsMust
   require_relative 'aws-must/aws-must'
   require_relative 'aws-must/template'
   require_relative 'aws-must/docu'
+  require_relative 'aws-must/fileprovider'
 
 end 
 

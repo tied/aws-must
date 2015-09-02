@@ -61,7 +61,7 @@ module AwsMust
 
     def document( template_name )
 
-      @logger.debug( "#{__method__}, template_name '#{template_name}'" )
+      @logger.info( "#{__method__}, template_name '#{template_name}'" )
       
       # 
       template_string = @template.get_template( template_name )
@@ -81,6 +81,7 @@ module AwsMust
           if open_found then
 
             state_opened = true
+            @logger.info( "#{__method__}, open tag in '#{template_name}'" )
             
             # something follows the start -tag
             redo if line && ! line.empty?
@@ -95,9 +96,11 @@ module AwsMust
           # puts "close_found=#{close_found}, #{close_found.class}, line=#{line}"
           if  close_found then
             output( line_pre ) if line_pre && !line_pre.empty?
+            @logger.info( "#{__method__}, close tag in '#{template_name}'" )
             state_opened = false
             redo if line && ! line.empty?
           elsif template_name = directive_include( line ) then
+            @logger.info( "#{__method__}, include in '#{template_name}'" )
             document( template_name )
           else
             output( line )
@@ -112,7 +115,6 @@ module AwsMust
     # output - document output
 
     def output( line )
-
       puts( line ) 
     end
 
