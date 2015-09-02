@@ -56,13 +56,15 @@ module AwsMust
     end
 
     # ------------------------------------------------------------------
-    # generate JSON by rendering 'template_name' using configurations
+    # output result of rendering 'template_name' using configurations
     # from 'yaml_file'
 
     def generate( template_name, yaml_file, options ) 
       puts generate_str( template_name, yaml_file, options )
     end
 
+    # return the result of rendering 'template_name' using
+    # configurations from 'yaml_file' as a string
     def generate_str( template_name, yaml_file, options ) 
 
       @logger.debug( "#{__method__}, template_name '#{template_name}'" )
